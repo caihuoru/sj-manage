@@ -3,8 +3,11 @@ import Mock from 'mockjs2';
 
 Mock.mock('/login', 'post', (opt: any) => {
     const postData = JSON.parse(opt.body);
-    if ( postData.username === 'admin' && postData.password === '123qwe') {
+    console.log(postData)
+    // if ( postData.username === 'admin' && postData.password === '123qwe') {
+        if ( postData.username === 'admin') {
         return {
+            data: { code: 0 },
             token: 'admin',
         };
     }

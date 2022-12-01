@@ -1,6 +1,6 @@
 import {Component, Vue } from "vue-property-decorator";
 import {Action} from 'vuex-class';
-import {get2step, getSmsCaptcha} from '@/api/login';
+import {getSmsCaptcha} from '@/api/login';
 import {timeFix} from '@/utils/util';
 import * as md5 from 'md5';
 
@@ -42,14 +42,6 @@ export default class LoginComponent extends Vue {
 
   created () {
 
-    get2step({ })
-      .then(res => {
-        let reponse=res as any;
-        this.requiredTwoStepCaptcha = reponse.result.stepCode
-      })
-      .catch(() => {
-        this.requiredTwoStepCaptcha = false
-      })
   }
 
 

@@ -1,5 +1,5 @@
 import api from '.'
-import { axios } from '@/utils/request'
+import { post } from '@/plugins/axios'
 
 /**
  * login func
@@ -13,25 +13,15 @@ import { axios } from '@/utils/request'
  * @returns {*}
  */
 export function login (parameter) {
-  return axios({
-    url: '/auth/login',
-    method: 'post',
-    data: parameter
-  })
+  return post('/ag/login', parameter, {})
 }
 
 export function getSmsCaptcha (parameter) {
-  return axios({
-    url: api.SendSms,
-    method: 'post',
-    data: parameter
-  })
+  return post(api.SendSms, parameter, {})
 }
 
 export function getInfo () {
-  return axios({
-    url: '/user/info',
-    method: 'get',
+  return post('/user/info', {}, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     }
@@ -39,23 +29,9 @@ export function getInfo () {
 }
 
 export function logout () {
-  return axios({
-    url: '/auth/logout',
-    method: 'post',
+  return post('/auth/logout', {}, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     }
-  })
-}
-
-/**
- * get user 2step code open?
- * @param parameter {*}
- */
-export function get2step (parameter) {
-  return axios({
-    url: api.twoStepCode,
-    method: 'post',
-    data: parameter
   })
 }

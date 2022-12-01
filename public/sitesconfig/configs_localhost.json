@@ -1,0 +1,30 @@
+{
+  "appname": "競氣管理系統",
+  "version": "1.0.0",
+  "favicon": "assets/logo.icon",
+  "loginUrl": "sitespage/login_admin.jinqi.html",
+  "logo": "assets/logo.png",
+  "guoZhang": "assets/logo.png",
+  "Api":"/api",
+  "referrer": "http://192.168.1.135:9990/reg.html?code=",
+  "feedbackUrl": "http://47.74.58.217:8899",  
+  "ConfigSys": {
+    "AppName": "jinqi",
+    "Host": {
+      "server": [
+        {
+          "host": "192.168.1.243",
+          "port": "18000"
+        }
+      ]
+    },
+    "WebServers": {
+      "remoteAMF": {
+        "host": "/local/apis"
+      },
+      "searchIp": {
+        "host": "/searchIp"
+      }
+    }
+  }
+}

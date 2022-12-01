@@ -1,0 +1,30 @@
+{
+  "appname": "SMTM Game Manage",
+  "version": "1.0.0",
+  "favicon": "assets/logo.svg",
+  "loginUrl": "sitespage/login_admin.bbxi.com.html",
+  "logo": "assets/logo.svg",
+  "guoZhang": "assets/logo.svg",
+  "showTradingType":1,
+  "referrer": "http://192.168.1.135:9990/reg.html?code=",
+  "feedbackUrl": "http://47.74.58.217:8899",
+  "ConfigSys": {
+    "AppName": "SMTM",
+    "Host": {
+      "server": [
+        {
+          "host": "8.210.41.103",
+          "port": "890"
+        }
+      ]
+    },
+    "WebServers": {
+      "remoteAMF": {
+        "host": "/apis"
+      },
+      "searchIp": {
+        "host": "/searchIp"
+      }
+    }
+  }
+}

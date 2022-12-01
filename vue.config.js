@@ -13,83 +13,36 @@ module.exports = {
     }
   },
   devServer: {
-    before: app => {
-      //app.use('/api',mockRouter);
-      // require('./_mock/s-table.tsx');
-      // mockRouter
-    },//require('_mock/index'),
+    proxy: {
+      "/local/apis": {
+        target: "http://192.168.1.135:9990/services/ag/services/Amfphp/gateway.php", // 本地接口
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          "^/local/apis": "", //需要rewrite重写的,
+        },
+      }, 
+      "/api" : {
+        "target" : "http://192.168.1.121:8988/api",
+        "changeOrigin" : true,
+        "secure" : false,
+        "pathRewrite" : {
+            "^/api" : "/"
+        }
+      },
+    },
   },
   chainWebpack: config => {
-
-    /*
-    config.module
-        .rule('tsx')
-        .test(/\.tsx?$/)
-        .use('tslint-loader')
-            .loader('tslint-loader');
-
-    config.module
-        .rule('vuetsx')
-        .test(/\.tsx?$/)
-        .use('babel-loader')
-            .loader('babel-loader')
-            .tap(opt=>{
-                opt={};
-                Object.assign(opt,{
-                    appendTsxSuffixTo: [/\.vue$/]
-                });
-                return opt;
-            });
-            */
   },
   configureWebpack: config => {
 
     if (process.env.NODE_ENV === 'production') {
       return {
         plugins: [
-          // new CopyWebpackPlugin([{
-          //   from: 'node_modules/@aspnet/signalr/dist/browser/signalr.min.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'src/lib/abp.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/font-awesome/css/font-awesome.css',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.png',
-          //   to: 'dist'
-          // }])
         ]
       }
     } else {
       return {
         plugins: [
-          // new CopyWebpackPlugin([{
-          //   from: 'node_modules/@aspnet/signalr/dist/browser/signalr.min.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'src/lib/abp.js',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/font-awesome/css/font-awesome.css',
-          //   to: 'dist'
-          // }, {
-          //   from: 'node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.png',
-          //   to: 'dist'
-          // }])
         ]
       }
     }

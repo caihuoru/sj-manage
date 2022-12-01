@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>行情圖函數匯總</title>
+  <link href="./js/app.099d1737fb9109ec280eaeec6d4a622f.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <div class="function-help">
+      <div class="aside">
+        <div class="handle-box">
+          <div class="filterBtn">
+            <div class="el-input el-input--suffix">
+              <input v-model="keyword" autocomplete="off" placeholder="輸入關鍵字進行過濾" type="text" rows="2" validateevent="true" class="el-input__inner">
+              <span @click="search" class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-input__icon el-icon-search"></i></span></span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="class-list">
+          <div v-for="(item, index) in list.children" :key="item.jobid" @click="activeIndex = index" class="function-class" :class="{activeItem: index === activeIndex}">
+            {{item.jobname}}
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="details">
+            <div class="detail-content">
+              <div class="title">{{list.children[activeIndex].jobname}}</div>
+              <div class="detail-box">
+                <div class="desc" v-for="item in list.children[activeIndex].children">
+                  <h4 class="desc-title">{{item.name}}</h4>
+                  <div v-html="item.note"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    var list = {
+      "jobname": "函數匯總",
+      "update": 20201019,
+      "children": [
+        {
+          "jobname": "動態行情函數DYNAINFO",
+          "jobid": "1",
+          "children": [
+            {
+              "name": "DYNAINFO(3) 昨收價",
+              "note": "返回動態昨收價"
+            },
+            {
+              "name": "DYNAINFO(4) 開盤價",
+              "note": "返回動態開盤價"
+            },
+            {
+              "name": "DYNAINFO(5) 最高價",
+              "note": "返回動態最高價"
+            },
+            {
+              "name": "DYNAINFO(6) 最低價",
+              "note": "返回動態最低價"
+            },
+            {
+              "name": "DYNAINFO(7) 成交量",
+              "note": "返回動態成交量"
+            },
+            {
+              "name": "DYNAINFO(8) 成交額",
+              "note": "返回動態成交額"
+            },
+            {
+              "name": "DYNAINFO(13) 振幅",
+              "note": "返回動態振幅"
+            },
+            {
+              "name": "DYNAINFO(14) 漲幅",
+              "note": "返回動態漲幅"
+            },
+            {
+              "name": "DYNAINFO(37) 換手率",
+              "note": "返回動態換手率"
+            }
+          ]
+        },
+        {
+          "jobname": "個股行情函數",
+          "jobid": "2",
+          "children": [
+            {
+              "name": "CLOSE 收盤價",
+              "note": "返回該週期收盤價"
+            },
+            {
+              "name": "C 收盤價",
+              "note": "返回該週期收盤價"
+            },
+            {
+              "name": "VOL 成交量",
+              "note": "返回該週期成交量"
+            },
+            {
+              "name": "V 成交量",
+              "note": "返回該週期成交量"
+            },
+            {
+              "name": "OPEN 開盤價",
+              "note": "返回該週期開盤價"
+            },
+            {
+              "name": "O 開盤價",
+              "note": "返回該週期開盤價"
+            },
+            {
+              "name": "HIGH 最高價",
+              "note": "返回該週期最高價"
+            },
+            {
+              "name": "H 最高價",
+              "note": "返回該週期最高價"
+            },
+            {
+              "name": "LOW 最低價",
+              "note": "返回該週期最低價"
+            },
+            {
+              "name": "L 最低價",
+              "note": "返回該週期最低價"
+            },
+            {
+              "name": "AMOUNT 成交額（元）",
+              "note": "返回該週期成交額"
+            }
+          ]
+        },
+        {
+          "jobname": "日期函數",
+          "jobid": "3",
+          "children": [
+            {
+              "name": "DATE 日期",
+              "note": "取得該週期從1900以來的的年月日。<br>用法: DATE 例如函數返回1000101,表示2000年1月1日,DATE+19000000後才是真正的日期值"
+            },
+            {
+              "name": "MONTH 月份",
+              "note": "取得該週期的月份。<br>用法: MONTH 函數返回有效值範圍為(1-12)"
+            },
+            {
+              "name": "YEAR 年份",
+              "note": "取得該週期的年份。<br>用法: YEAR"
+            },
+            {
+              "name": "TIME",
+              "note": "取得該週期的時分,適用於日線以下週期<br>用法: TIME 函數返回有效值範圍為(0000-2359)"
+            }
+
+          ]
+        },
+        {
+          "jobname": "引用函數",
+          "jobid": "4",
+          "children": [
+            {
+              "name": "BARSCOUNT 求總的週期數",
+              "note": "用法: BARSCOUNT(X)第一個有效數據到當前的天數。<br>例如:BARSCOUNT(CLOSE) 對於日線數據取得上市以來總交易日數"
+            },
+            {
+              "name": "BARSLAST 上一條件成立位置",
+              "note": "上一次條件成立到當前的週期數。<br>用法: BARSLAST(X):上一次X不為0到現在的天數。<br>例如: BARSLAST(CLOSE/REF(CLOSE,1)>=1.1)表示上一個漲停板到當前的週期數。"
+            },
+            {
+              "name": "BARSSINCE 首個條件成立位置",
+              "note": "第一個條件成立到當前的週期數。<br>用法: BARSSINCE(X):第一次X不為0到現在的天數。<br>例如: BARSSINCE(HIGH>10)表示股價超過10元時到當前的週期數"
+            },
+            {
+              "name": "BARSSINCEN N週期內首個條件成立位置",
+              "note": "N週期內第一個條件成立到當前的週期數。<br>用法: BARSSINCEN(X,N):N週期內第一次X不為0到現在的天數,N為常量。<br>例如: BARSSINCEN(HIGH>10,10)表示10個週期內股價超過10元時到當前的週期數"
+            },
+            {
+              "name": "COUNT 統計",
+              "note": "統計滿足條件的週期數。<br>用法: COUNT(X,N),統計N週期中滿足X條件的週期數,若N<0則從第一個有效值開始。<br>例如: COUNT(CLOSE>OPEN,20)表示統計20週期內收陽的週期數"
+            },
+            {
+              "name": "CURRBARSCOUNT 到最後交易的週期",
+              "note": "求到最後交易日的週期數。<br>用法: CURRBARSCOUNT 求到最後交易日的週期數。"
+            },
+            {
+              "name": "DMA 動態移動平均",
+              "note": "求動態移動平均.<br>用法:<br> DMA(X,A),求X的動態移動平均.<br>演算法:Y=A*X+(1-A)*Y',其中Y'表示上一週期Y值,A必須大於0且小於1.A支持變數.<br>例如:<br>DMA(CLOSE,VOL/CAPITAL)表示求以換手率作平滑因數的平均價"
+            },
+            {
+              "name": "EMA 指數移動平均",
+              "note": "返回指數移動平均。<br>用法: EMA(X,N):X的N日指數移動平均。<br>演算法: Y=(X*2+Y'*(N-1))/(N+1)。 EMA(X,N)相當於SMA(X,N+1,2),N支持變數"
+            },
+            {
+              "name": "EXPMA 指數移動平均",
+              "note": "返回指數移動平均。<br>用法: EMA(X,N):X的N日指數移動平均。<br>演算法: Y=(X*2+Y'*(N-1))/(N+1)。 EMA(X,N)相當於SMA(X,N+1,2),N支持變數"
+            },
+            {
+              "name": "EXPMEMA 指數平滑移動平均",
+              "note": "返回指數平滑移動平均。<br>用法: EXPMEMA(X,N):X的N日指數平滑移動平均。 EXPMEMA同EMA(EXPMA)的差別在於他的起始值為一平滑值。"
+            },
+            {
+              "name": "FILTER 過濾",
+              "note": "過濾連續出現的信號.<br>用法:FILTER(X,N):X滿足條件後,將其後N週期內的數據置為0,N為常量<br>例如:<br> FILTER(CLOSE>OPEN,5)查找陽線,5天內再次出現的陽線不被記錄在內"
+            },
+            {
+              "name": "HHV 求最高值",
+              "note": "用法: HHV(X,N),求N週期內X最高值,N=0則從第一個有效值開始。<br>例如: HHV(HIGH,30)表示求30日最高價。"
+            },
+            {
+              "name": "HHVBARS 上一高點位置",
+              "note": "求上一高點到當前的週期數.<br>用法:<br> HHVBARS(X,N):求N週期內X最高值到當前週期數,N=0表示從第一個有效值開始統計<br>例如:<br> HHVBARS(HIGH,0)求得歷史新高到到當前的週期數"
+            },
+            {
+              "name": "LLV 求最低值",
+              "note": "用法: LLV(X,N),求N週期內X最低值,N=0則從第一個有效值開始。<br>例如: LLV(LOW,0)表示求歷史最低價"
+            },
+            {
+              "name": "LLVBARS 上一低點位置",
+              "note": "求上一低點到當前的週期數.<br>用法:<br> LLVBARS(X,N):求N週期內X最低值到當前週期數,N=0表示從第一個有效值開始統計<br>例如:<br> LLVBARS(HIGH,20)求得20日最低點到當前的週期數"
+            },
+            {
+              "name": "MEMA 平滑移動平均",
+              "note": "返回平滑移動平均<br>用法:<br> MEMA(X,N):X的N日平滑移動平均,如Y=(X+Y'*(N-1))/N<br>MEMA(X,N)相當於SMA(X,N,1)"
+            },
+            {
+              "name": "MA 簡單移動平均",
+              "note": "返回簡單移動平均。<br>用法: MA(X,N):X的N日簡單移動平均。<br>演算法: (X1+X2+X3+...+Xn)/N,N支持變數"
+            },
+            {
+              "name": "MULAR 累乘",
+              "note": "求累乘.<br>用法:<br> MULAR(X,N),統計N週期中X的乘積.N=0則從第一個有效值開始.<br>例如:<br> MULAR(C/REF(C,1),0)表示統計從上市第一天以來的複利"
+            },
+            {
+              "name": "RANGE 介於某個範圍之間",
+              "note": "RANGE(A,B,C):A在B和C範圍之間,B<A<C。<br>用法: RANGE(A,B,C)表示A大於B同時小於C時返回1,否則返回0"
+            },
+            {
+              "name": "REF 日前的",
+              "note": "引用若干週期前的數據(平滑處理)。<br>用法:REF(X,A),引用A週期前的X值.A可以是變數.平滑處理:當引用不到數據時進行的操作.此函數中,平滑時使用上一個週期的引用值。<br>例如: REF(CLOSE,BARSCOUNT(C)-1)表示第二根K線的收盤價"
+            },
+            {
+              "name": "REFX(X,A),引用A週期後的X值",
+              "note": "屬於未來函數,引用若干週期後的數據(平滑處理)。<br>用法:REFX(X,A),引用A週期後的X值.A可以是變數。<br>平滑處理:當引用不到數據時進行的操作.此函數中,平滑時使用上一個週期的引用值。<br>例如:TT:=IF(C>O,1,2); REFX(CLOSE,TT);表示陽線引用下一週期的收盤價,陰線引用日後第二週期的收盤價"
+            },
+            {
+              "name": "REFV(X,A),引用A週期前的X值",
+              "note": "引用若干週期前的數據(未作平滑處理)。<br>用法: REFV(X,A),引用A週期前的X值.A可以是變數。<br>平滑處理:當引用不到數據時進行的操作。<br>例如: REFV(CLOSE,BARSCOUNT(C)-1)表示第二根K線的收盤價"
+            },
+            {
+              "name": "REFXV(X,A),引用A週期後的X值",
+              "note": "屬於未來函數,引用若干週期後的數據(未作平滑處理) <br>用法:REFXV(X,A),引用A週期後的X值.A可以是變數<br>平滑處理:當引用不到數據時進行的操作。<br>例如: REFXV(CLOSE,1)表示下一週期的收盤價,在日線上就是明天收盤價"
+            },
+            {
+              "name": "REFDATE 日",
+              "note": "引用自1900年以來指定日期的數據。<br>用法: REFDATE(X,A),引用A日期的X值。<br>例如: REFDATE(CLOSE,1011208)表示2001年12月08日的收盤價"
+            },
+            {
+              "name": "REVERSE 求相反數",
+              "note": "求相反數.<br>用法:<br> REVERSE(X)返回-X.<br>例如:<br>REVERSE(CLOSE)返回-CLOSE"
+            },
+            {
+              "name": "SMA 移動平均",
+              "note": "返回移動平均。<br>用法: SMA(X,N,M):X的N日移動平均,M為權重,如Y=(X*M+Y'*(N-M))/N"
+            },
+            {
+              "name": "SUM 求總和",
+              "note": "用法: SUM(X,N),統計N週期中X的總和,N=0則從第一個有效值開始。<br>例如: SUM(VOL,0)表示統計從上市第一天以來的成交量總和"
+            },
+            {
+              "name": "SUMBARS 累加到指定值的週期數",
+              "note": "向前累加到指定值到現在的週期數.<br>用法:<br> SUMBARS(X,A):將X向前累加直到大於等於A,返回這個區間的週期數<br>例如:SUMBARS(VOL,CAPITAL)求完全換手到現在的週期數"
+            },
+            {
+              "name": "TFILTER 信號過濾(多頭)",
+              "note": "過濾連續出現的信號。<br>用法: TFILTER(買入條件,賣出條件,N);過濾掉買入(賣出)信號發出後,下一個反向信號發出前的所有買入(賣出)信號。N=1表示僅對買入信號過濾;N=2表示僅對賣出信號過濾;N=0表示對買入和賣出信號都過濾,返回1,2表示買入或賣出條件成立;同一K線上只能有一個信號。<br>例如: ENTERLONG:TFILTER(買入,賣出,1);EXITLONG:TFILTER(買入,賣出,2)"
+            },
+            {
+              "name": "WMA 加權移動平均",
+              "note": "返回加權移動平均.<br>用法:<br>WMA(X,N):X的N日加權移動平均.演算法:Yn=(1*X1+2*X2+...+n*Xn)/(1+2+...+n)"
+            },
+            {
+              "name": "BARSLASTCOUNT(X) 統計連續滿足條件的週期數",
+              "note": "用法: BARSLASTCOUNT(X),統計連續滿足X條件的週期數.<br>例如: BARSLASTCOUNT(CLOSE>OPEN)表示統計連續收陽的週期數"
+            }
+          ]
+        },
+        {
+          "jobname": "板塊字元函數",
+          "jobid": "5",
+          "children": [
+            {
+              "name": "CODELIKE 模糊匹配品種代碼",
+              "note": "品種代碼是否以參數開頭。<br>用法: if(CODELIKE('600'),x,y)"
+            },
+            {
+              "name": "NAMELIKE 模糊匹配品種名稱",
+              "note": "品種名稱是否以參數開頭.<br>用法: if(NAMELIKE('ST'),x,y)"
+            },
+            {
+              "name": "EXISTR",
+              "note": " "
+            },
+            {
+              "name": "STRCAT(A,B)",
+              "note": "將兩個字串A,B(非序列化)相加成一個字串C.<br>用法: STRCAT('多頭','開倉')將兩個字串'多頭','開倉'相加成一個字串'多頭開倉'"
+            },
+            {
+              "name": "CON2STR(A,N)",
+              "note": "取A最後的值(非序列值)轉為字串,小數位數N.<br>用法: CON2STR(FINANCE(20),3)表示取營業收入,以3位小數轉為字串"
+            }
+          ]
+        },
+        {
+          "jobname": "邏輯函數",
+          "jobid": "6",
+          "children": [
+            {
+              "name": "CROSS 上穿",
+              "note": "兩條線交叉。<br>用法: CROSS(A,B)表示當A從下方向上穿過B時返回1,否則返回0。<br>例如: CROSS(MA(CLOSE,5),MA(CLOSE,10))表示5日均線與10日均線交金叉"
+            },
+            {
+              "name": "DOWNNDAY 連跌",
+              "note": "返回是否連跌週期。<br>用法: DOWNNDAY(CLOSE,M) 表示連跌M個週期,M為常量"
+            },
+            {
+              "name": "EXIST 存在",
+              "note": "是否存在。<br>用法: EXIST(CLOSE>OPEN,10)  表示前10日內存在著陽線"
+            },
+            {
+              "name": "EVERY 一直存在",
+              "note": "用法: EVERY(CLOSE>OPEN,10)  表示前10日內一直陽線"
+            },
+            {
+              "name": "LAST 持續存在",
+              "note": "LAST(X,A,B):持續存在。<br>用法: LAST(CLOSE>OPEN,10,5)  表示從前10日到前5日內一直陽線。 若A為0,表示從第一天開始,B為0,表示到最後日止"
+            },
+            {
+              "name": "LONGCROSS 持續週期後上穿",
+              "note": "兩條線維持一定週期後交叉。<br>用法:LONGCROSS(A,B,N)表示A在N週期內都小於B,本週期從下方向上穿過B時返回1,否則返回0"
+            },
+            {
+              "name": "NDAY 連大",
+              "note": "返回是否持續存在X>Y。<br>用法: NDAY(CLOSE,OPEN,3) 表示連續3日收陽線"
+            },
+            {
+              "name": "NOT 取反",
+              "note": "求邏輯非。<br>用法: NOT(X)返回非X,即當X=0時返回1,否則返回0。<br>例如: NOT(ISUP)表示平盤或收陰"
+            },
+            {
+              "name": "UPNDAY 連漲",
+              "note": "返回是否連漲週期數。<br>用法: UPNDAY(CLOSE,M) 表示連漲M個週期,M為常量"
+            }
+
+          ]
+        },
+        {
+          "jobname": "選擇函數",
+          "jobid": "7",
+          "children": [
+            {
+              "name": "IF 條件判斷",
+              "note": "根據條件求不同的值。<br>用法: IF(X,A,B)若X不為0則返回A,否則返回B。<br>例如: IF(CLOSE>OPEN,HIGH,LOW)表示該週期收陽則返回最高值,否則返回最低值"
+            },
+            {
+              "name": "IFF 條件判斷",
+              "note": "根據條件求不同的值，<br>用法: IF(X,A,B)若X不為0則返回A,否則返回B。<br>例如: IFF(CLOSE>OPEN,HIGH,LOW)表示該週期收陽則返回最高值,否則返回最低值"
+            }
+          ]
+        },
+        {
+          "jobname": "數學函數",
+          "jobid": "8",
+          "children": [
+            {
+              "name": "ABS 絕對值",
+              "note": "求絕對值,用法: ABS(X)返回X的絕對值。<br>例如: ABS(-34)返回34"
+            },
+            {
+              "name": "ACOS 反余弦值",
+              "note": "用法: ACOS(X)返回X的反余弦值"
+            },
+            {
+              "name": "ASIN 反正弦值",
+              "note": "用法: ASIN(X)返回X的反正弦值"
+            },
+            {
+              "name": "ATAN 反正切值",
+              "note": "用法: ATAN(X)返回X的反正切值"
+            },
+            {
+              "name": "COS 余弦",
+              "note": "用法: COS(X)返回X的余弦值"
+            },
+            {
+              "name": "EXP 指數",
+              "note": "用法: EXP(X)為e的X次冪。<br>例如: EXP(CLOSE)返回e的CLOSE次冪"
+            },
+            {
+              "name": "LN 自然對數",
+              "note": "求自然對數.<br>用法: LN(X)以e為底的對數。<br>例如: LN(CLOSE)求收盤價的對數"
+            },
+            {
+              "name": "LOG 對數",
+              "note": "求10為底的對數。<br>用法: LOG(X)取得X的對數。<br>例如: LOG(100)等於2"
+            },
+            {
+              "name": "MAX 較大值",
+              "note": "求最大值。<br>用法: MAX(A,B)返回A和B中的較大值。<br>例如: MAX(CLOSE-OPEN,0)表示若收盤價大於開盤價返回它們的差值,否則返回0"
+            },
+            {
+              "name": "MIN 較小值",
+              "note": "求最小值。<br>用法: MIN(A,B)返回A和B中的較小值。<br>例如: MIN(CLOSE,OPEN)返回開盤價和收盤價中的較小值"
+            },
+            {
+              "name": "SIN 正弦",
+              "note": "正弦值。<br>用法: SIN(X)返回X的正弦值"
+            },
+            {
+              "name": "SQRT 開方",
+              "note": "開平方。<br>用法: SQRT(X)為X的平方根。<br>例如: SQRT(CLOSE)收盤價的平方根"
+            },
+            {
+              "name": "TAN 正切",
+              "note": "正切值。<br>用法: TAN(X)返回X的正切值"
+            },
+            {
+              "name": "INTPART(A)取整",
+              "note": "用法: INTPART(A)返回沿A絕對值減小方向最接近的整數<br>例如: INTPART(12.3)求得12,INTPART(-3.5)求得-3"
+            },
+            {
+              "name": "FRACPART 小數部分.",
+              "note": "用法: FRACPART(X),返回X的小數部分"
+            },
+            {
+              "name": "CEILING 向上舍入.",
+              "note": "用法: CEILING(A)返回沿A數值增大方向最接近的整數。<br>例如: CEILING(12.3)求得13,CEILING(-3.5)求得-3"
+            },
+            {
+              "name": "FLOOR 向下舍入",
+              "note": "用法: FLOOR(A)返回沿A數值減小方向最接近的整數。<br>例如: FLOOR(12.3)求得12,FLOOR(-3.5)求得-4"
+            },
+            {
+              "name": "MOD 取模",
+              "note": "用法: MOD(M,N),返回M關於N的模(M除以N的餘數)。<br>例如: MOD(5,3)返回2"
+            },
+            {
+              "name": "BETWEEN介於",
+              "note": "用法: BETWEEN(A,B,C)表示A處於B和C之間時返回1,B<A<C或C<A<B,否則返回0。<br>例如: BETWEEN(CLOSE,MA(CLOSE,10),MA(CLOSE,5))表示收盤價介於5日均線和10日均線之間"
+            }
+
+          ]
+        },
+        {
+          "jobname": "統計函數",
+          "jobid": "9",
+          "children": [
+            {
+              "name": "AVEDEV 平均絕對偏差",
+              "note": "用法：AVEDEV(X,N) 返回平均絕對偏差"
+            },
+            {
+              "name": "BETA β(Beta)係數",
+              "note": "β(Beta)係數<br>BETA(N) 返回當前證券N週期收益與對應大盤指數收益相比的貝塔係數<br>(對應指數的數據必須要先下載到本地)"
+            },
+            {
+              "name": "COVAR 協方差",
+              "note": "用法：COVAR(X,Y,N) 返回X和Y的N週期的協方差"
+            },
+            {
+              "name": "DEVSQ 數據偏差平方和",
+              "note": "用法：DEVSQ(X,N) 返回數據偏差平方和"
+            },
+            {
+              "name": "FORCAST 線性回歸預測值",
+              "note": "用法：FORCAST(X,N) 返回線性回歸預測值"
+            },
+            {
+              "name": "RELATE 相關係數",
+              "note": "用法：RELATE(X,Y,N) 返回X和Y的N週期的相關係數"
+            },
+            {
+              "name": "SLOPE 線性回歸斜率",
+              "note": "用法：SLOPE(X,N) 返回線性回歸斜率"
+            },
+            {
+              "name": "STD 估算標準差",
+              "note": "用法：STD(X,N) 返回估算標準差"
+            },
+            {
+              "name": "STDP 總體標準差",
+              "note": "用法：STDP(X,N) 返回總體標準差"
+            },
+            {
+              "name": "VAR 估算樣本方差",
+              "note": "用法：VAR(X,N) 返回估算樣本方差"
+            },
+            {
+              "name": "VARP 總體樣本方差",
+              "note": "用法：VARP(X,N) 返回總體樣本方差"
+            }
+          ]
+        },
+        {
+          "jobname": "形態函數",
+          "jobid": "10",
+          "children": [
+            {
+              "name": "COST 成本分佈",
+              "note": "成本分佈情況。<br>用法: COST(10),表示10%獲利盤的價格是多少,即有10%的持倉量在該價格以下,其餘90%在該價格以上,為套牢盤。該函數僅對日線分析週期有效"
+            },
+            {
+              "name": "PEAKBARS 波峰位置",
+              "note": "屬於未來函數,前M個ZIG轉向波峰到當前距離。<br>用法: PEAKBARS(K,N,M)表示之字轉向ZIG(K,N)的前M個波峰到當前的週期數,M必須大於等於1。<br>例如: PEAKBARS(0,5,1)表示%5開盤價ZIG轉向的上一個波峰到當前的週期數"
+            },
+            {
+              "name": "SAR 拋物轉向",
+              "note": "拋物轉向.<br>用法:<br> SAR(N,S,M),N為計算週期,S為步長,M為極值<br>例如:<br>SAR(10,2,20)表示計算10日拋物轉向,步長為2%,極限值為20%"
+            },
+            {
+              "name": "SARTURN 拋物轉向點",
+              "note": "拋物轉向點.<br>用法:<br>SARTURN(N,S,M),N為計算週期,S為步長,M為極值,若發生向上轉向則返回1,若發生向下轉向則返回-1,否則為0<br>其用法與SAR函數相同"
+            },
+            {
+              "name": "TROUGHBARS 波谷位置",
+              "note": "屬於未來函數,前M個ZIG轉向波谷到當前距離。<br>用法: TROUGHBARS(K,N,M)表示之字轉向ZIG(K,N)的前M個波谷到當前的週期數,M必須大於等於1。<br>例如: TROUGHBARS(2,5,2)表示%5最低價ZIG轉向的前2個波谷到當前的週期數"
+            },
+            {
+              "name": "WINNER 獲利盤比例",
+              "note": "用法: WINNER(CLOSE),表示以當前收市價賣出的獲利盤比例。<br>例如: 返回0.1表示10%獲利盤;WINNER(10.5)表示10.5元價格的獲利盤比例。該函數僅對日線分析週期有效"
+            },
+            {
+              "name": "ZIG 之字轉向",
+              "note": "屬於未來函數,之字轉向。<br>用法: ZIG(K,N),當價格變化量超過N%時轉向,K表示0:開盤價,1:最高價,2:最低價,3:收盤價,其餘:數組資訊。<br>例如: ZIG(3,5)表示收盤價的5%的ZIG轉向"
+            }
+
+          ]
+        },
+        // {
+        //   "jobname": "財務數據函數 FINANCE",
+        //   "jobid": "11",
+        //   "children": [
+        //     {
+        //       "name": "FINANCE(1) 總股本(萬股)",
+        //       "note": "返回該週期總股本"
+        //     },
+        //     {
+        //       "name": "FINANCE(7) 流通股本(萬股)",
+        //       "note": "返回該週期流通股本"
+        //     },
+        //     {
+        //       "name": "FINANCE(9) 資產負債率",
+        //       "note": "返回該週期資產負債率"
+        //     },
+        //     {
+        //       "name": "FINANCE(18) 每股公積金",
+        //       "note": "返回每股公積金"
+        //     },
+        //     {
+        //       "name": "FINANCE(30) 淨利潤",
+        //       "note": "返回淨利潤"
+        //     },
+        //     {
+        //       "name": "FINANCE(32) 每股未分配利潤",
+        //       "note": "返回每股未分配利潤"
+        //     },
+        //     {
+        //       "name": "FINANCE(33) 每股收益",
+        //       "note": "每股收益(折算為全年收益),對於滬深品種有效"
+        //     },
+        //     {
+        //       "name": "FINANCE(34) 每股淨資產",
+        //       "note": "返回每股淨資產"
+        //     },
+        //     {
+        //       "name": "FINANCE(38) 每股收益",
+        //       "note": "返回每股收益(最近一期季報)"
+        //     },
+        //     {
+        //       "name": "FINANCE(40) 流通市值",
+        //       "note": "返回流通市值"
+        //     },
+        //     {
+        //       "name": "FINANCE(41) 總市值",
+        //       "note": "返回總市值"
+        //     },
+        //     {
+        //       "name": "FINANCE(42) 上市的天數",
+        //       "note": "返回上市的天數"
+        //     },
+        //     {
+        //       "name": "FINANCE(43) 利潤同比(Profit year on year)",
+        //       "note": "返回利潤同比"
+        //     },
+        //     {
+        //       "name": "FINANCE(45) 股息率",
+        //       "note": "返回股息率"
+        //     },
+        //     {
+        //       "name": "CAPITAL  流通股本（手）",
+        //       "note": "返回流通股本"
+        //     },
+        //     {
+        //       "name": "EXCHANGE  換手率(成交量/流通股本)",
+        //       "note": "返回換手率(成交量/流通股本)"
+        //     }
+        //   ]
+        // },
+        // {
+        //   "jobname": "融資融券MARGIN",
+        //   "jobid": "12",
+        //   "children": [
+        //     {
+        //       "name": "MARGIN(1) 融資融券餘額",
+        //       "note": "返回融資融券餘額"
+        //     },
+        //     {
+        //       "name": "MARGIN(2) 融資占比",
+        //       "note": "返回融資占比"
+        //     },
+        //     {
+        //       "name": "MARGIN(3) 買入資訊-融資餘額",
+        //       "note": "返回買入資訊-融資餘額"
+        //     },
+        //     {
+        //       "name": "MARGIN(4) 買入資訊-買入額",
+        //       "note": "返回買入資訊-買入額"
+        //     },
+        //     {
+        //       "name": "MARGIN(5) 買入資訊-償還額",
+        //       "note": "返回買入資訊-償還額"
+        //     },
+        //     {
+        //       "name": "MARGIN(6) 買入資訊-融資淨買入",
+        //       "note": "返回買入資訊-融資淨買入"
+        //     },
+        //     {
+        //       "name": "MARGIN(7) 賣出資訊-融券餘量",
+        //       "note": "返回賣出資訊-融券餘量"
+        //     },
+        //     {
+        //       "name": "MARGIN(8) 賣出資訊-賣出量",
+        //       "note": "返回賣出資訊-賣出量"
+        //     },
+        //     {
+        //       "name": "MARGIN(9) 賣出資訊-償還量",
+        //       "note": "返回賣出資訊-償還量"
+        //     },
+        //     {
+        //       "name": "MARGIN(10) 賣出資訊-融券淨賣出",
+        //       "note": "返回賣出資訊-融券淨賣出"
+        //     }
+        //   ]
+        // },
+        {
+          "jobname": "繪圖函數",
+          "jobid": "13",
+          "children": [
+            {
+              "name": "DRAWTEXT 顯示文字",
+              "note": "用法：DRAWTEXT(COND,PRICE,TEXT),當COND條件滿足時,在PRICE位置書寫文字TEXT。<br>例如: DRAWTEXT(CLOSE/OPEN>1.08,LOW,'大陽線')表示當日實體陽線大於8%時在最低價位置顯示'大陽線'字樣。"
+            },
+            {
+              "name": "STICKLINE 柱狀圖",
+              "note": "用法: STICKLINE(COND,PRICE1,PRICE2,WIDTH,EMPTY),當COND條件滿足時,在PRICE1和PRICE2位置之間畫柱狀線,寬度為WIDTH(10為標準間距),EMPTH為0畫實心柱,-1畫虛線空心柱,否則畫實線空心柱。<br>例如：STICKLINE(CLOSE>OPEN,CLOSE,OPEN,0.8,1)表示畫K線中陽線的空心柱體部分。<br>說明：當值為101時，表示是一個通道。<br>WIDTH=50 寬度和K線寬度保持一致<br>EMPTY只有在WIDTH=50才生效<br>STICKLINE(CLOSE>OPEN,CLOSE,0,50,1); 空心柱子"
+            },
+            {
+              "name": "DRAWBAND 畫帶狀線",
+              "note": "用法：DRAWBAND(VAL1,COLOR1,VAL2,COLOR2),當VAL1>VAL2時,在VAL1和VAL2之間填充COLOR1;當VAL1<VAL2時,填充COLOR2,這裏的顏色均使用RGB函數計算得到。<br>例如：DRAWBAND(OPEN,RGB(0,224,224),CLOSE,RGB(255,96,96))。"
+            },
+            {
+              "name": "DRAWKLINE k線",
+              "note": "DRAWKLINE(HIGH,OPEN,LOW,CLOSE)。<br>用法：以HIGH為最高價,OPEN為開盤價,LOW為最低,CLOSE收盤畫K線。"
+            },
+            {
+              "name": "PLOYLINE 折線段",
+              "note": "用法：PLOYLINE(COND,PRICE),當COND條件滿足時,以PRICE位置為頂點畫折線連接。<br>例如：PLOYLINE(HIGH>=HHV(HIGH,20),HIGH)表示在創20天新高點之間畫折線。"
+            },
+            {
+              "name": "DRAWNUMBER 畫數字",
+              "note": "用法：DRAWNUMBER(COND,PRICE,NUMBER),當COND條件滿足時,在PRICE位置書寫數字NUMBER。<br>例如：DRAWNUMBER(CLOSE/OPEN>1.08,LOW,C)表示當日實體陽線大於8%時在最低價位置顯示收盤價。"
+            },
+            {
+              "name": "DRAWICON 圖示",
+              "note": "用法：DRAWICON(COND,PRICE,TYPE),當COND條件滿足時,在PRICE位置畫TYPE號圖示(TYPE為1--46)。<br>例如：DRAWICON(CLOSE>OPEN,LOW,1)表示當收陽時在最低價位置畫1號圖示。"
+            },
+            {
+              "name": "DRAWCHANNEL 繪製通道",
+              "note": "用法：DRAWCHANNEL(condition, data, data2, borderColor, borderWidth, dotted, areaColor)<br> condition:條件;<br> data,data2:通道頂部和底部;<br> borderColor: 通道頂部和底部線段顏色RGB/RGBA,不填就不畫  如: 'RGB(24,30,40)'; <br> borderWidth: 通道頂部和底部線段寬度;<br>areaColor: 通道面積顏色RGB/RGBA 不填使用默認顏色 如:'RGB(200,30,44)' ;<br> dotted: 通道頂部和底部虛線設置, 不填默認 3, 如'3,4' ;<br><br> 例子1：在[20,80]區間段畫一個通道<br>DRAWCHANNEL(1,20,80, 'RGB(255,94,102)', 2 ,'5,5','RGBA(58,20,62,0.3)' );<br>例子2：以最高價和最低價畫一個通道 <br>DRAWCHANNEL(1,HIGH,LOW, 'RGB(255,94,102)', 2 ,'5,5','RGBA(58,20,62,0.3)' );<br>例子3：開盤>收盤的區間端以最高價和最低價畫一個通道<br>DRAWCHANNEL(OPEN>CLOSE,HIGH,LOW, 'RGB(255,94,102)', 2 ,'5,5','RGBA(58,20,62,0.3)' );"
+            },
+            {
+              "name": "DRAWRECTREL 相對位置上畫矩形",
+              "note": "用法: DRAWRECTREL(LEFT,TOP,RIGHT,BOTTOM,COLOR)<br>以圖形窗口(LEFT,TOP)為左上角,(RIGHT,BOTTOM)為右下角繪製矩形.<br>座標單位是窗口沿水準和垂直方向的1/1000,取值範圍是0—999,超出範圍則可能顯示在圖形窗口外.<br>矩形中間填充顏色COLOR,COLOR為0表示不填充.<br>例如: DRAWRECTREL(0,0,500,500,RGB(255,255,0))表示在圖形最左上部1/4位置用黃色繪製矩形."
+            },
+            {
+              "name": "DRAWKLINE_IF 使用條件畫k線",
+              "note": "用法:DRAWKLINE_IF=function(condition,high,open,low,close) <br>示例：DRAWKLINE_IF（C>O,H,O,L,C） 表示收盤價大於開盤價的時候，使用最高價、開盤價、最低價、收盤價畫k線"
+            },
+            {
+              "name": "DRAWTEXT_FIX(COND,X,Y,TYPE,TEXT) 固定位置顯示文字;在指標排序中顯示字串欄目.",
+              "note": "用法:DRAWTEXT_FIX(COND,X,Y,TYPE,TEXT),當COND條件滿足時,在當前指標窗口內(X,Y)位置書寫文字TEXT,X,Y為書寫點在窗口中相對於左上角的百分比,TYPE:0為左對齊,1為右對齊 <br>示例：DRAWTEXT_FIX(CURRBARSCOUNT=1 AND CLOSE/OPEN>1.08,0.5,0.5,0,'大陽線')表示最後一個交易日實體陽線大於8%時在窗口中間位置顯示'大陽線'字樣"
+            }
+          ]
+        },
+        {
+          "jobname": "大盤數據",
+          "jobid": "14",
+          "children": [
+            {
+              "name": "INDEXA 大盤成交額",
+              "note": "返回大盤成交額"
+            },
+            {
+              "name": "INDEXC 大盤收盤價",
+              "note": "返回大盤收盤價"
+            },
+            {
+              "name": "INDEXH 大盤最高價",
+              "note": "返回大盤最高價"
+            },
+            {
+              "name": "INDEXL 大盤最低價",
+              "note": "返回大盤最低價"
+            },
+            {
+              "name": "INDEXO 大盤開盤價",
+              "note": "返回大盤開盤價"
+            },
+            {
+              "name": "INDEXV 大盤成交量",
+              "note": "返回大盤成交量"
+            }
+          ]
+        },
+        {
+          "jobname": "線形和資源",
+          "jobid": "15",
+          "children": [
+            {
+              "name": "LINETHICK1 線形粗細1",
+              "note": "線形粗細1"
+            },
+            {
+              "name": "LINETHICK2 線形粗細2",
+              "note": "線形粗細2"
+            },
+            {
+              "name": "LINETHICK3 線形粗細3",
+              "note": "線形粗細3"
+            },
+            {
+              "name": "LINETHICK4 線形粗細4",
+              "note": "線形粗細4"
+            },
+            {
+              "name": "LINETHICK5 線形粗細5",
+              "note": "線形粗細5"
+            },
+            {
+              "name": "LINETHICK6 線形粗細6",
+              "note": "線形粗細6"
+            },
+            {
+              "name": "LINETHICK7 線形粗細7",
+              "note": "線形粗細7"
+            },
+            {
+              "name": "LINETHICK8 線形粗細8",
+              "note": "線形粗細8"
+            },
+            {
+              "name": "LINETHICK9 線形粗細9",
+              "note": "線形粗細9"
+            },
+            {
+              "name": "LINETHICK10 線形粗細10",
+              "note": "線形粗細10"
+            },
+            {
+              "name": "COLORSTICK 畫上下柱子",
+              "note": "畫上下柱子"
+            },
+            {
+              "name": "CIRCLEDOT 畫小圓點",
+              "note": "畫小圓點"
+            },
+            {
+              "name": "LINESTICK  同時畫出柱狀線和指標線",
+              "note": "同時畫出柱狀線和指標線"
+            },
+            {
+              "name": "STICK 畫柱狀圖",
+              "note": "畫柱狀圖"
+            },
+            {
+              "name": "VOLSTICK 成交量柱狀線",
+              "note": "成交量柱狀線。當股價上漲時顯示紅色空心柱，反之則顯示綠色實心柱"
+            }
+          ]
+        },
+        {
+          "jobname": "顏色值",
+          "jobid": "16",
+          "children": [
+            {
+              "name": "COLORYELLOW 畫黃色",
+              "note": "畫黃色"
+            },
+            {
+              "name": "COLORBLACK 畫黑色",
+              "note": "畫黑色"
+            },
+            {
+              "name": "COLORBLUE 畫藍色",
+              "note": "畫藍色"
+            },
+            {
+              "name": "COLORGREEN 畫綠色",
+              "note": "畫綠色"
+            },
+            {
+              "name": "COLORCYAN 畫青色",
+              "note": "畫青色"
+            },
+            {
+              "name": "COLORRED 畫紅色",
+              "note": "畫紅色"
+            },
+            {
+              "name": "COLORMAGENTA 畫洋紅色",
+              "note": "畫洋紅色"
+            },
+            {
+              "name": "COLORBROWN 畫棕色",
+              "note": "畫棕色"
+            },
+            {
+              "name": "COLORLIGRAY 畫淡灰色",
+              "note": "畫淡灰色"
+            },
+            {
+              "name": "COLORGRAY 畫深灰色",
+              "note": "畫深灰色"
+            },
+            {
+              "name": "COLORLIBLUE 畫淡藍色",
+              "note": "畫淡藍色"
+            },
+            {
+              "name": "COLORLIGREEN 畫淡綠色",
+              "note": "畫淡綠色"
+            },
+            {
+              "name": "COLORLICYAN 畫淡青色",
+              "note": "畫淡青色"
+            },
+            {
+              "name": "COLORLIRED 畫淡紅色",
+              "note": "畫淡紅色"
+            },
+            {
+              "name": "COLORLIMAGENTA 畫淡洋紅色",
+              "note": "畫淡洋紅色"
+            },
+            {
+              "name": "COLORWHITE 畫白色",
+              "note": "畫白色"
+            },
+            {
+              "name": "COLOR 自定義色",
+              "note": " 格式為COLOR+“RRGGBB”：RR、GG、BB表示紅色、綠色和藍色的分量，每種顏色的取值範圍是00-FF，採用了16進制。<br>例如：MA5：MA(CLOSE，5)，COLOR00FFFF　表示純紅色與純綠色的混合色：COLOR808000表示淡藍色和淡綠色的混合色。"
+            }
+          ]
+        },
+        // {
+        //   "jobname": "新聞統計",
+        //   "jobid": "17",
+        //   "children": [
+        //     {
+        //       "name": "NEWS(1) 負面新聞統計",
+        //       "note": "返回負面新聞統計"
+        //     },
+        //     {
+        //       "name": "NEWS(2) 機構調研統計",
+        //       "note": "返回機構調研統計"
+        //     },
+        //     {
+        //       "name": "NEWS(3) 互動計統計",
+        //       "note": "返回互動易統計"
+        //     }
+        //   ]
+        // },
+        // {
+        //   "jobname": "北上資金數據",
+        //   "jobid": "18",
+        //   "children": [
+        //     {
+        //       "name": "HK2SHSZ(1) 北上資金流入(總)",
+        //       "note": "返回北上資金總流入數據"
+        //     },
+        //     {
+        //       "name": "HK2SHSZ(2) 北上資金流入(上證)",
+        //       "note": "返回北上資金上證市場流入數據"
+        //     },
+        //     {
+        //       "name": "HK2SHSZ(3) 北上資金流入(深證)",
+        //       "note": "返回北上資金深證市場流入數據"
+        //     },
+        //     {
+        //       "name": "HK2SHSZ()",
+        //       "note": "返回當前股票的北上資金"
+        //     },
+        //     {
+        //       "name": "HK2SHSZ('000001.SZ')",
+        //       "note": "指定獲取某一個股票的北上資金"
+        //     }
+        //   ]
+        // },
+        {
+          "jobname": "截面報表函數",
+          "jobid": "19",
+          "children": [
+            {
+              "name": "SF(年,報告期,字段名)",
+              "note": "返回截面報表數據。<br>年:數值型<br>報告期: 1-4 1=1季度  2=半年報  3=3季度  4=年報<br><br>字段名: '流動資產'、'貨幣資金'、'存貨'、 '流動負債'、'非流動負債'、'三項費用'、'投資收益'、'歸母淨利潤'、 '扣非淨利潤'、'扣非每股收益'、'加權平均淨資產收益'、'在建工程'、'累計折舊'、'少數股東利潤'、'匯兌損益'、'壞賬計提'、'固定資產'、'當期折舊'、 '營業總收入'、'主營業務利潤'、 '營業利潤'、 '淨利潤'、'應收賬款'、'財務費用'、'經營性現金流'、'資產總計'、'負債總計'、 '所有者權益總計'、 '毛利率'、 '每股資本公積金'、 '每股未分配利潤'、'每股收益'、 '每股淨資產'、 '每股經營性現金流'、 '扣非淨利潤漲幅'、'扣非淨利潤漲速'、 '淨利潤漲幅'、 '資產負債率'、 '利潤同比'<br><br>例子：<br>Args:[ { Name:'YY', Value:2019} ], //定義一個參數YY=2019<br>Script: //腳本<br>DATA2017=SF(YY-2,1,'營業總收入'); <br>DATA2018=SF(YY-1,1,'營業總收入') <br>DATA2019=SF(YY,1,'營業總收入') <br>營業總收入2019一季度:DATA2019; <br>營業總收入2018一季度:DATA2018;<br>'營業總收入2017一季度:DATA2017; <br>比上一年:IF(DATA2019>DATA2018, '增加','減少'); <br>連續增長:IF( DATA2019>DATA2018 AND DATA2018>DATA2017, '是','否') "
+            }
+          ]
+        },
+        {
+          "jobname": "跨週期函數",
+          "jobid": "20",
+          "children": [
+            {
+              "name": "COVER_C() ",
+              "note": "返回對應週期的收盤價。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_C(MIN1) 表示返回對應股票的1分鐘收盤價"
+            },
+            {
+              "name": "COVER_O() ",
+              "note": "返回對應週期的開盤價。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_O(MIN1) 表示返回對應股票的1分鐘開盤價"
+            },
+            {
+              "name": "COVER_H() ",
+              "note": "返回對應週期的最高價。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_H(MIN1) 表示返回對應股票的1分鐘最高價"
+            },
+            {
+              "name": "COVER_L() ",
+              "note": "返回對應週期的最低價。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_L(MIN1) 表示返回對應股票的1分鐘最低價"
+            },
+            {
+              "name": "COVER_A() ",
+              "note": "返回對應週期的成交額。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_A(MIN1) 表示返回對應股票的1分鐘的成交額"
+            },
+            {
+              "name": "COVER_V() ",
+              "note": "返回對應週期的成交量。<br>括弧裏的參數值可選為：MIN1、 MIN5、 MIN15、 MIN30、 MIN60、 DAY、 WEEK、 MONTH、 YEAR，<br>分別表示1分鐘、5分鐘、15分鐘、30分鐘、60分鐘、日、周、月、年。<br>用法：COVER_V(MIN1) 表示返回對應股票的1分鐘的成交量"
+            },
+            {
+              "name": "#",
+              "note": "跨週期引用符號。<br>#後可用MIN1,MIN5,MIN15,MIN30,MIN60,DAY,WEEK,MONTH,SEASON,YEAR <br>例如:TMP1:=CLOSE#WEEK;<br>只可用於OPEN,HIGH,LOW,CLOSE,VOL,AMOUNT,VOLINSTK,當前週期不支持多秒線,多分鐘線和多日線,並且引用週期必須要高於當前週期"
+            }
+          ]
+        }
+      ]
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+        list,
+        activeIndex: 0,
+        keyword: '',
+        indexs: []
+      },
+      methods: {
+        search() {
+          if (this.keyword !== '') {
+            this.indexs =[]
+            for(let i = 0; i < this.list.children.length; i++){
+              
+              if (this.list.children[i].jobname.indexOf(this.keyword) > -1) {
+                if (this.indexs.indexOf(i) === -1) this.indexs.push(i)
+              }
+              for(let j = 0; j < this.list.children[i].children.length; j++){
+                if (this.list.children[i].children[j].name.indexOf(this.keyword) > -1) {
+                  if (this.indexs.indexOf(i) === -1) this.indexs.push(i)
+                }
+                if (this.list.children[i].children[j].note.indexOf(this.note) > -1) {
+                  if (this.indexs.indexOf(i) === -1) this.indexs.push(i)
+                }
+              }
+            }
+            if(this.indexs.length) this.activeIndex = this.indexs[0]
+            console.log(this.indexs)
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
