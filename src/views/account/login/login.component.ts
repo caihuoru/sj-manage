@@ -2,7 +2,7 @@ import {Component, Vue } from "vue-property-decorator";
 import {Action} from 'vuex-class';
 import {getSmsCaptcha} from '@/api/login';
 import {timeFix} from '@/utils/util';
-import * as md5 from 'md5';
+import UtilSystem from "@/utils/UtilSystem";
 
 
 
@@ -77,10 +77,12 @@ export default class LoginComponent extends Vue {
     validateFields(validateFieldsKey, { force: true }, (err, values) => {
       if (!err) {
         console.log('login form', values)
-        const loginParams = { ...values }
+        const loginParams:any = {}
         delete loginParams.username
-        loginParams[!state.loginType ? 'email' : 'username'] = values.username
-        loginParams.password = md5(values.password)
+        loginParams[!state.loginType ? 'email' : 'user_acc'] = values.username
+        loginParams.user_pwd = values.password
+        loginParams.udid = UtilSystem.getUdid();
+        console.log(loginParams)
         Login(loginParams)
           .then((res) => this.loginSuccess(res))
           .catch(err => this.requestFailed(err))
@@ -145,8 +147,6 @@ export default class LoginComponent extends Vue {
   }
 
   loginSuccess (res?:any) {
-    console.log(res);
-
     this.$router.push({ name: 'dashboard' });
     // 延迟 1 秒显示欢迎信息
     setTimeout(() => {

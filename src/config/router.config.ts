@@ -40,7 +40,7 @@ export const asyncRouterMap = [
                     },
                     {
                         path: '/dashboard/table-list',
-                        name: 'TableListWrapper',
+                        name: 'able-list',
                         hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
                         component: () => import('@/views/table/List.vue'),
                         meta: { title: '表格', keepAlive: true, permission: ['table'] }
@@ -50,7 +50,7 @@ export const asyncRouterMap = [
         ]
     },
     {
-        path: '*', redirect: '/404', hidden: true
+        path: '*', redirect: '/account/login', hidden: true
     }
 ]
 
@@ -58,11 +58,10 @@ export const asyncRouterMap = [
  * 基础路由
  * @type { *[] }
  */
-export const constantRouterMap = [
+export const constantRouterMap:any = [
     {
         path: '/account',
         component: AccountLayout,
-        redirect: '/account/login',
         hidden: true,
         children: [
             {
@@ -89,6 +88,9 @@ export const constantRouterMap = [
     {
         path: '/404',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/404.vue')
-    }
+    },
+    ...asyncRouterMap
 
 ]
+
+// constantRouterMap.push(asyncRouterMap)

@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import md5 from 'md5'
+// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha.vue'
 import { Component, Vue} from "vue-property-decorator";
 import { timeFix } from '@/utils/util'
@@ -181,7 +181,9 @@ export default class USER extends Vue {
       const loginParams = { ...values }
       delete loginParams.username
       loginParams[!state.loginType ? 'email' : 'username'] = values.username
-      loginParams.password = md5(values.password)
+      // loginParams.password = md5(values.password)
+      loginParams.password = values.password
+      loginParams.udid = ''
       Login(loginParams)
         .then((res) => this.loginSuccess(res))
         .catch(err => this.requestFailed(err))

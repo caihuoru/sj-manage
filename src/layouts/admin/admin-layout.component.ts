@@ -49,7 +49,8 @@ export default class AdminLayoutComponent extends MixinDevice {
   }
 
   created() {
-    this.menus = this.mainMenu.find(item => item.path === '/').children
+    // console.log(this.$router.options.routes)
+    this.menus = (this as any).$router.options.routes.find(item => item.path === '/').children
     this.collapsed = !this.sidebarOpened
   }
 

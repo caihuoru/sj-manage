@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import createPersistedState from "vuex-persistedstate"
 import app from './modules/app'
 import user from './modules/user'
 import permission from './modules/permission'
@@ -15,14 +15,16 @@ export default new Vuex.Store<RootState>({
     user,
     permission
   },
-  state: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-
-  },
-  getters:getters
+  getters:getters,
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+    key: 'system',
+    reducer(val:any){
+        return {
+            app: val.app,
+            user: val.user,
+            permission: val.permission,
+        }
+    }
+})]
 })
