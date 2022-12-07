@@ -10,7 +10,7 @@
             <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">
           <a-avatar class="avatar" size="small" :src="avatar()"/>
-          <span>{{ nickName}}</span>
+          <span>{{ info.user_nickname }}</span>
         </span>
                 <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
                     <a-menu-item key="0">
@@ -44,28 +44,25 @@
 
 <script lang="ts">
     import NoticeIcon from '@/components/notice-icon';
-
-    import {Component, Prop, Vue,Watch,Emit,Provide,Inject,Mixins} from "vue-property-decorator";
+    import { namespace } from "vuex-class";
+    import {Component, Vue} from "vue-property-decorator";
     import {Action} from 'vuex-class';
-
-
+    const userModule = namespace("user");
     @Component({
         components: {
             NoticeIcon,
         },
     })
     export default class UserMenu extends Vue {
-
+        @userModule.Getter("info") info!: {};
         constructor() {
             super();
         }
-
+        created() {
+            console.log(this.info)   
+        }
         @Action('Logout')
         logout;
-
-
-
-        nickName:string='玩双截棍的熊猫';
 
         avatar(){
             return '';

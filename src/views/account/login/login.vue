@@ -1,128 +1,241 @@
 <template>
-  <div class="main">
-    <a-form
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      :form="form"
-      @submit="handleSubmit"
+  <div class="login">
+    <div class="iframestyleset">
+      <iframe
+        name="iframeMap"
+        id="iframeMapViewComponent"
+        :src="loginUrl"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        scrolling="no"
+        ref="iframeDom"
+      ></iframe>
+    </div>
+    <a-modal
+      :title="$t('common.dtsryzm_title')"
+      :okText="$t('common.login')"
+      :visible="visible"
+      centered
+      :confirmLoading="confirmLoading"
+      @ok="handleOk"
+      @cancel="handleCancel"
     >
-      <a-tabs
-        :activeKey="customActiveKey"
-        :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
-        @change="handleTabClick"
-      >
-        <a-tab-pane key="tab1" tab="账号密码登录">
-          <a-form-item>
-            <a-input
-              size="large"
-              type="text"
-              placeholder="帐户名或邮箱地址 / admin"
-              v-decorator="[
-                'username',
-                {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
-              ]"
-            >
-              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-
-          <a-form-item>
-            <a-input
-              size="large"
-              type="password"
-              autocomplete="false"
-              placeholder="密码 / admin"
-              v-decorator="[
-                'password',
-                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
-              ]"
-            >
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-        </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登录">
-          <a-form-item>
-            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button
-                class="getCaptcha"
-                tabindex="-1"
-                :disabled="state.smsSendBtn"
-                @click.stop.prevent="getCaptcha"
-                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"
-              ></a-button>
-            </a-col>
-          </a-row>
-        </a-tab-pane>
-      </a-tabs>
-
-      <a-form-item>
-        <a-checkbox v-decorator="['rememberMe']">自动登录</a-checkbox>
-        <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
-          class="forge-password"
-          style="float: right;"
-        >忘记密码</router-link>
-      </a-form-item>
-
-      <a-form-item style="margin-top:24px">
-        <a-button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          class="login-button"
-          :loading="state.loginBtn"
-          :disabled="state.loginBtn"
-        >确定</a-button>
-      </a-form-item>
-
-      <div class="user-login-other">
-        <span>其他登录方式</span>
-        <a>
-          <a-icon class="item-icon" type="alipay-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="taobao-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="weibo-circle"></a-icon>
-        </a>
-        <router-link class="register" :to="{ name: 'register' }">注册账户</router-link>
+      <p>{{ $t("common.dtsryzm_tip") }}</p>
+      <a-input
+        v-model="pwd"
+        :placeholder="$t('common.dtsryzm_placeholder')"
+        style="background: #fff; color: #333"
+      />
+    </a-modal>
+    <a-modal
+      :title="$t('common.ggyzbd_title')"
+      :visible="visibleQR"
+      :width="320"
+      centered
+    >
+      <template slot="footer">
+        <div key="back" @click="handleCancelQR"></div>
+        <div key="submit" @click="handleOkQR"></div>
+      </template>
+      <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+        <img width="200" height="200" style="margin-bottom: 20px" :src="codeUrl" />
+        <a-button key="submit" @click="handleOkQR" type="primary">
+          {{$t('common.ysewm')}}
+        </a-button>
       </div>
-    </a-form>
-
+    </a-modal>
   </div>
 </template>
-
 <script lang="ts">
-  import {Component} from "vue-property-decorator";
-  import LoginComponent from "./login.component";
+import { message, Modal } from "ant-design-vue";
+import { mapActions, mapState } from "vuex";
+import user from "@/store/modules/user";
+import { encodepwd, decodepwd } from "@/utils/util";
+import UtilSystem from "@/utils/tool/UtilSystem";
 
-  @Component({
-    components: {},
-  })
-  export default class Login extends LoginComponent {
-    constructor() {
-      super();
-    }
-  }
-
+export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      usernameSelect: false,
+      passwordSelect: false,
+      userPwdSelectList: localStorage.getItem("userPwdSelectList") || [],
+      showUserPwdSelectList: [],
+      showSelectList: false,
+      loginUrl: "",
+      isGetLocal: false,
+      visible: false,
+      visibleQR: false,
+      pwd: "",
+      authGoogled: false,
+      codeUrl: '',
+      confirmLoading: false
+    };
+  },
+  computed: {
+  },
+  created() {
+    // 初始化時為window綁定一個方法
+    const win = window as any
+    win.vueDefinedMyProp = (receiveParams) => {
+      this.receiveParamsFromHtml(receiveParams);
+    };
+    const data = new Date() as any
+    this.loginUrl = win.siteConfigs.loginUrl + "?" + Date.parse(data);
+  },
+  mounted() {},
+  methods: {
+    ...mapActions({
+      Login: "user/Login",
+    }),
+    // 接收參數方法
+    receiveParamsFromHtml(res) {
+      this.username = res.username;
+      this.password = res.password;
+      this.usernameSelect = res.usernameSelect;
+      this.passwordSelect = res.passwordSelect;
+      this.submits();
+    },
+    handleOk() {
+      if (this.pwd === "") {
+        return message.error(
+          this.$t("common.dtsryzm_placeholder") + this.$t("not empty")
+        );
+      }
+      this.confirmLoading = true
+      this.authGoogle(this.username, this.pwd);
+    },
+    handleCancel() {
+      this.visible = false;
+      this.confirmLoading = false
+    },
+    handleCancelQR(){
+      this.visibleQR = false;
+    }, 
+    handleOkQR() {
+      this.visibleQR = false;
+      this.visible = true;
+    },
+    // 提交數據方法
+    submits() {
+      const username = this.username;
+      let password = this.password;
+      console.log("submits", username, password);
+      const udid = UtilSystem.getUdid();
+      if (username === "") {
+        message.error(this.$t("The account cannot be empty"));
+        setTimeout(() => {
+          // 恢復登錄按鈕效果
+          (window as any).frames.iframeMap.resetLoginStyle();
+        }, 300);
+        return false;
+      }
+      if (password === "") {
+        message.error(this.$t("The password cannot be empty"));
+        setTimeout(() => {
+          // 恢復登錄按鈕效果
+          (window as any).frames.iframeMap.resetLoginStyle();
+        }, 300);
+        return false;
+      }
+      // 讀取加密密碼
+      password = decodepwd(password);
+      console.log('login ========',username, password, udid);
+      this.Login({
+        user_acc:username,
+        user_pwd:password,
+        udid:udid,
+      }).then(
+        data=>{
+          this.cookies.set("userId", data.userId, -1);
+          this.cookies.set("userNickname", data.userNickname, -1);
+          this.loginDown(data);
+        },
+        error=>{
+          this.resetLoginUi();
+          console.log(error);
+          // message.error(this.$t(error.msg));
+        }
+      ) 
+    }, 
+    resetLoginUi() {
+      // 恢復登錄按鈕效果
+      (window as any).frames.iframeMap.resetLoginStyle();
+    },
+    // 登錄跳轉
+    loginDown(data) {
+      if (this.authGoogled == false) {
+        if (data && data.qrcode && data.qrcode.length) {
+          this.$AppCore.Logout();
+          this.resetLoginUi();
+          this.visibleQR = true;
+          this.codeUrl = data.qrcode
+          return;
+        }
+        if (data && data.isAuth == 1) {
+          this.$AppCore.Logout();
+          this.resetLoginUi();
+          this.visible = true;
+          return;
+        }
+      }
+      this.resetLoginUi();
+      (user as any).state.isFirstCome = true;
+      this.$router.push("/");
+      this.authGoogled = false;
+    },
+    // google驗證
+    authGoogle(userAcc, code) {
+      this.$AppCore.user.authGoogle(userAcc, code).then(
+        (result) => {
+          if (result.code != 0) {
+            message.error("驗證失敗,請重試!");
+          } else{
+            this.authGoogled = true;
+            this.submits(); //重新登錄
+          }
+            this.confirmLoading = false
+          console.log("authGoogle", result);
+        },
+        (error) => {
+          this.confirmLoading = false
+          message.error("驗證失敗!");
+        }
+      );
+    },
+    // 在登錄完成後，如果系統有開機提示，彈出提示資訊。
+    getFirstModal() {
+      const h = this.$createElement;
+      this.$XModal
+        .confirm({
+          resize: true,
+          title: this.$t("The system prompt"),           
+        })
+        .then((type) => {
+          if (type === "confirm") {
+            // 確定按鈕回調
+          }
+        });
+    }    
+  },
+};
 </script>
-
 <style lang="less" scoped>
-@import 'login';
+.login {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  .testBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #333333;
+  }
+  .iframestyleset {
+    width: 100%;
+    height: 100vh;
+  }
+}
 </style>

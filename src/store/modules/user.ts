@@ -1,35 +1,18 @@
 import Vue from 'vue';
-import {getInfo, login, logout} from '@/api/login';
+import {login, logout} from '@/api/login';
 import {ACCESS_TOKEN} from '@/store/mutation-types';
-import {welcome} from '@/utils/util';
-import ls from 'vue-ls';
 import {MutationTree, ActionTree, GetterTree, ActionContext, Module} from 'vuex';
 import {RootState} from '@/store/interface';
-import {IAppState} from '@/store/modules/app';
 const v= Vue as any;
 
 export interface IUserState {
     token: string,
-    name: string,
-    welcome: string,
-    avatar: string,
-    roles: any[],
     info: any,
 }
 
 const mutations:MutationTree<IUserState> = {
     SET_TOKEN: (state: IUserState, token) => {
         state.token = token;
-    },
-    SET_NAME: (state: IUserState, {name, welcome}) => {
-        state.name = name;
-        state.welcome = welcome;
-    },
-    SET_AVATAR: (state: IUserState, avatar) => {
-        state.avatar = avatar;
-    },
-    SET_ROLES: (state: IUserState, roles) => {
-        state.roles = roles;
     },
     SET_INFO: (state: IUserState, info) => {
         state.info = info;
@@ -44,6 +27,7 @@ const actions:ActionTree<IUserState,RootState> = {
                 const result = response.data;
                 v.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000);               
                 context.commit('SET_TOKEN', result.token);
+                context.commit('SET_INFO', result.user);
                 resolve(res);
             }).catch(error => {
                 reject(error);
@@ -88,7 +72,7 @@ const actions:ActionTree<IUserState,RootState> = {
     Logout(context){
         return new Promise((resolve) => {
             context.commit('SET_TOKEN', '');
-            context.commit('SET_ROLES', []);
+            context.commit('SET_INFO', {});
             v.ls.remove(ACCESS_TOKEN);
 
             logout().then(() => {
@@ -105,19 +89,18 @@ const getters: GetterTree<IUserState, RootState> = {
     // token: (state: IUserState) => {
     //     return state.token
     // }
+    info:  (state: any) => {
+        return state.info
+    },
 };
 
 const userState: IUserState = {
     token: '',
-    name: '',
-    welcome: '',
-    avatar: '',
-    roles: [],
     info: {}
 };
 
 const user: Module<IUserState, RootState> = {
-    namespaced: false,
+    namespaced: true,
     state: userState,
     getters: getters,
     actions: actions,

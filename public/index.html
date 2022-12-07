@@ -1,20 +1,122 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="zh-tw" style="background-color: black;">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>logo.png">
-    <title>Ant Design Pro</title>
-    <style>#preloadingAnimation{position:fixed;left:0;top:0;height:100%;width:100%;background:#ffffff;user-select:none;z-index: 9999;overflow: hidden}.lds-roller{display:inline-block;position:relative;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;}.lds-roller div{animation:lds-roller 1.2s cubic-bezier(0.5,0,0.5,1) infinite;transform-origin:32px 32px;}.lds-roller div:after{content:" ";display:block;position:absolute;width:6px;height:6px;border-radius:50%;background:#13c2c2;margin:-3px 0 0 -3px;}.lds-roller div:nth-child(1){animation-delay:-0.036s;}.lds-roller div:nth-child(1):after{top:50px;left:50px;}.lds-roller div:nth-child(2){animation-delay:-0.072s;}.lds-roller div:nth-child(2):after{top:54px;left:45px;}.lds-roller div:nth-child(3){animation-delay:-0.108s;}.lds-roller div:nth-child(3):after{top:57px;left:39px;}.lds-roller div:nth-child(4){animation-delay:-0.144s;}.lds-roller div:nth-child(4):after{top:58px;left:32px;}.lds-roller div:nth-child(5){animation-delay:-0.18s;}.lds-roller div:nth-child(5):after{top:57px;left:25px;}.lds-roller div:nth-child(6){animation-delay:-0.216s;}.lds-roller div:nth-child(6):after{top:54px;left:19px;}.lds-roller div:nth-child(7){animation-delay:-0.252s;}.lds-roller div:nth-child(7):after{top:50px;left:14px;}.lds-roller div:nth-child(8){animation-delay:-0.288s;}.lds-roller div:nth-child(8):after{top:45px;left:10px;}#preloadingAnimation .load-tips{color: #13c2c2;font-size:2rem;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin-top:80px;text-align:center;width:400px;height:64px;}  @keyframes lds-roller{0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);}}</style>
+    <link id="favicons" type="image/x-icon" rel="shortcut icon" href="<%= BASE_URL %>favicon.png">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.css">
+    <script src="assets/js/install.js"></script>
+    <title id="titles">loading</title>
+    <style>
+      html {
+        background-color: #000;
+      }
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #9370DB;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+      #loader:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #BA55D3;
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+      }
+      #loader:after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #FF00FF;
+        -webkit-animation: spin 1.5s linear infinite;
+        animation: spin 1.5s linear infinite;
+      }
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      h1 {
+        top: 50%;
+        display: block;
+        position: relative;
+        margin-top: 50px !important;
+        text-align: center;
+        color: #fff !important;
+      }
+    </style>
+    <script></script>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but vue-antd-pro doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app">
-      <div id="preloadingAnimation"><div class=lds-roller><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class=load-tips>Loading</div></div>
-    </div>
+    <!-- <div id="preloader">
+      <div id="loader"></div>
+      <h1>系統正在初始化，請稍候...</h1>
+    </div> -->
+    <div id="app"></div>
+
     <!-- built files will be auto injected -->
+    <script>
+      // 暫時禁用https
+      // var ishttps = 'https:' == document.location.protocol
+      //   ? true
+      //   : false;
+      // if (ishttps) {
+      //   window.location.href = "http://" + location.host;
+      // }
+
+      var bodyClass = localStorage.getItem('themeColor')
+        ? localStorage.getItem('themeColor')
+        : 'theme_default';
+      document.body.className = bodyClass;
+    </script>
   </body>
 </html>

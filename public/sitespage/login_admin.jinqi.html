@@ -20,7 +20,7 @@
             .warp {
                 height: 100%;
                 display: flex;
-                background: url("../assets/loginBg.jpg") no-repeat center center;
+                background: url("../assets/loginBg2.webp") no-repeat center center;
                 background-size: cover;
                 flex-direction: column;
                 align-items: center;
@@ -29,10 +29,9 @@
             }
 
             .items {
-                width: 640px;
-                height: 420px;
+                width: 400px;
+                height: 460px;
                 position: relative;
-                margin-left: 50%;
             }
 
             .mask {
@@ -48,8 +47,8 @@
             }
 
             .loginPanel {
-                width: 600px;
-                height: 420px;
+                width: 400px;
+                height: 460px;
                 border-radius: 10px;
                 display: flex;
                 flex-direction: row;
@@ -82,15 +81,26 @@
             }
 
             .loginPanel .form {
-                width: 70%;
+                width: 100%;
                 background-color: #fff;
                 height: 100%;
-                padding: 0 20px;
+                padding: 0 40px;
                 color: #333;
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
+                border-radius: 12px;
             }
-
+            .loginPanel .form .title-logo {
+                text-align: center;
+            }
+            .loginPanel .form .title-logo img {
+                width: 226px;
+                margin: 39px 0 50px 0;
+            }
+            .loginPanel #username {
+                margin-bottom: 30px;
+            }
+            .loginPanel #password {
+                margin-bottom: 5px;
+            }
             .loginPanel h3 {
                 font-size: 40px;
                 letter-spacing: 10px;
@@ -128,7 +138,8 @@
 
             .loginPanel .checkbox {
                 display: flex;
-                flex-direction: row;
+                justify-content: space-between;
+                font-size: 12px;
 
             }
 
@@ -140,8 +151,8 @@
             }
 
             .loginPanel .checkbox input {
-                width: 18px;
-                height: 18px;
+                width: 10px;
+                height: 10px;
                 border: 1px solid #81a3d1;
                 border-radius: 4px;
                 margin-right: 6px;
@@ -172,31 +183,36 @@
                 border: 1px solid #b9b9b9;
                 border-radius: 4px;
             }
-
+            input[type="checkbox"]:checked {
+                background-color: #228ff3;
+                border: 1px solid #228ff3;
+                overflow: hidden;
+            }
             input[type="checkbox"]:checked::before {
                 content: "\2713";
-                background-color: #fff;
+                background-color: #228ff3;
                 position: absolute;
-                top: 0;
+                top: -5px;
                 left: 0;
                 width: 100%;
-                border: 1px solid #7D7D7D;
+                border: none;
                 border-radius: 4px;
-                color: #7D7D7D;
-                font-size: 16px;
+                color: #fff;
+                font-size: 12px;
                 font-weight: bold;
             }
 
             .loginPanel .submit button {
-                font-size: 22px;
+                font-size: 14px;
                 padding: 6px 20px;
-                width: 100%;
+                width: 320px;
+                height: 44px;
                 background-color: #228ff3;
                 outline: none;
-                margin-top: 10px;
+                margin-top: 20px;
                 border: 0;
                 color: #ffffff;
-                border-radius: 3px;
+                border-radius: 6px;
                 cursor: pointer;
             }
 
@@ -493,26 +509,28 @@
         <div class="warp">
             <div class="items">
                 <div class="loginPanel">
-                    <div class="logo">
+                    <!-- <div class="logo">
                         <img src="../assets/logbig.png">
 
                         <h4>爭財競氣</h4>
-                    </div>
+                    </div> -->
                     <div class="form">
-                        <h3>
-                            <span>管理登入</span></h3>
+                        <div class="title-logo">
+                            <img src="/assets/logo2.png"/>
+                        </div>
                         <form action="javascript:;">
                             <div class="inputText">
-                                <label for="username">帳號：</label>
+                                <!-- <label for="username">帳號：</label> -->
                                 <div class="input-group">
-                                    <input type="text" id="username" readonly>
+                                    <input type="text" id="username" readonly placeholder="請輸入賬號">
                                     <img src="../assets/rocket.png" class="rocket" id="rocket"  alt="" onclick="showSelectList()">
 
                                     <div class="selectList" id="selectList"></div>
                                 </div>
                             </div>
                             <div class="inputText">
-                                <label>密碼：</label><input type="password" id="password" readonly>
+                                <!-- <label>密碼：</label> -->
+                                <input type="password" id="password" placeholder="請輸入密碼" readonly>
                             </div>
                             <div class="checkbox">
                                 <label><input type="checkbox" id="usernameSelect" checked>記住帳號</label>
@@ -521,9 +539,9 @@
                             <div class="submit">
                                 <button type="submit" id="submits" onclick="invockIframeMethod()">登 入</button>
                             </div>
-                            <div class="clearAll">
-                                <div onclick="clearAll()">清除登入信息</div>
-                            </div>
+                            <!-- <div class="clearAll"> -->
+                                <!-- <div onclick="clearAll()">清除登入信息</div> -->
+                            <!-- </div> -->
                         </form>
                     </div>
                 </div>

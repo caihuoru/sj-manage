@@ -9210,6 +9210,11 @@ vue-clipboard2@^0.2.1:
   dependencies:
     clipboard "^2.0.0"
 
+vue-cookies@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.npmmirror.com/vue-cookies/-/vue-cookies-1.8.2.tgz#39515fa09ebb585a50ac86c0e182a6b9307dc6ad"
+  integrity sha512-+NfoC5l+7ybuVwpnqsf52qndnoYMjEb4EFhX4/j9RzzQP00dNzuJELsWuW2p8omNUzNlSgWGVyyWoOeJr347tw==
+
 vue-cropper@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/vue-cropper/-/vue-cropper-0.4.4.tgz#63c85ba5c7f9d9779370930c8522b61deb177c97"
@@ -9331,6 +9336,11 @@ vuex-persistedstate@^4.1.0:
 vuex@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
+
+vxe-table@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.npmmirror.com/vxe-table/-/vxe-table-4.3.6.tgz#494048abe3820af48a1e756dbf2a482f07a72995"
+  integrity sha512-SZ+ocVoOFc1PSzvpz6q5n7YvWvPSXUV+raet0zaSbQy3g8Dj7jKNlFbcsSoWZm8Uys9ufAQxeqYO5rRwOB2m7A==
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"

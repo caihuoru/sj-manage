@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_login_desktop_offline</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#AAAAAA" offset="0%"></stop>
+            <stop stop-color="#757575" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-368.000000, -141.000000)">
+            <g id="icon_login_desktop_offline" transform="translate(368.000000, 141.000000)">
+                <rect id="矩形" fill="#834E4E" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                <rect id="矩形" fill="url(#linearGradient-1)" x="0" y="0" width="16" height="11" rx="1"></rect>
+                <path d="M3.99286988,16 L3.99286988,15 L5.989,15 L5.98930481,12 L0.650689906,12 C0.453511146,12 0.295768139,11.9408867 0.177460883,11.8226601 C0.0591536278,11.7044335 0,11.546798 0,11.3497537 L0,11.3497537 L0,0.709359606 C0,0.512315271 0.0591536278,0.354679803 0.177460883,0.236453202 C0.335203891,0.078817734 0.492946898,0 0.650689906,0 L0.650689906,0 L15.261636,0 C15.419379,0 15.577122,0.078817734 15.734865,0.236453202 C15.892608,0.39408867 15.9714795,0.551724138 15.9714795,0.709359606 L15.9714795,0.709359606 L15.9714795,11.3497537 C15.9714795,11.5073892 15.892608,11.6650246 15.734865,11.8226601 C15.6165577,11.9408867 15.4588147,12 15.261636,12 L15.261636,12 L9.98217469,12 L9.982,15 L11.9786096,15 L11.9786096,16 L3.99286988,16 Z M15.261636,0.709359606 L0.650689906,0.709359606 L0.650689906,9.70935961 L15.261636,9.70935961 L15.261636,0.709359606 Z" id="形状结合" fill="#BBBBBB" fill-rule="nonzero"></path>
+                <polygon id="路径" fill="#888888" fill-rule="nonzero" points="6.66666667 12 9.33333333 12 9.33333333 15 6.66666667 15"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #121212;
+        }
+
+        #isIeBox {
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+        }
+        #isIeBox a{
+            color:#fff;
+            text-decoration: none;
+        }
+
+        #isIeBox div.content {
+            width: 70%;
+            margin: 10% auto;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            flex-direction: column;
+
+        }
+
+        #isIeBox div.chrome-button {
+            margin-top:30px;
+            height: 48px;
+            padding: 5px 20px;
+            background-color: #0dcad4;
+            width: 360px;
+            border: 1px solid #0cb9c9;
+            border-radius: 10px;
+        }
+
+        #isIeBox div.chrome-button a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #isIeBox div.chrome-button img {
+            margin-right:10px;
+        }
+
+        #isIeBox a.jump-old {
+            height: 48px;
+            padding: 5px 20px;
+            background-color: #bd2c00;
+            width: 300px;
+            border: 1px solid #bd2c00;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div id="isIeBox">
+    <div class="content">
+        <h3>Srroy！尊敬的閣下。由於本系統采用了先進的語法，對於過舊的瀏覽器會出現體驗差或者不支援。</h3>
+        <h3>閣下的瀏覽器版本過低，請您使用先進的瀏覽器訪問本系統。</h3>
+        <div class="chrome-button">
+            <a href="https://www.google.com/intl/zh-TW/chrome/">
+                <!--<img src="assets/chrome-logo.svg"/> -->
+                <img src="./chrome-logo.svg"/>
+                <span>下載 Google Chrome,進行最新的體驗</span>
+            </a>
+        </div>
+
+        <h3>或者</h3>
+        <a class="jump-old" href="https://trading.f935.cc">訪問傳統版本</a>
+    </div>
+</div>
+</body>
+</html>

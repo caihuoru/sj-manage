@@ -32,6 +32,9 @@ axios.interceptors.response.use((response: any) => {
         if (data){
           message.destroy()
           // 登录失效
+          if (data.code === 10030) {
+            return  message.error('賬號密碼錯誤');
+          }
           if (data.code === 50000) {
               router.replace({
                 path: '/login'
