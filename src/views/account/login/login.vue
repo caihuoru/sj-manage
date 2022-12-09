@@ -48,10 +48,10 @@
   </div>
 </template>
 <script lang="ts">
-import { message, Modal } from "ant-design-vue";
-import { mapActions, mapState } from "vuex";
+import { message } from "ant-design-vue";
+import { mapActions } from "vuex";
 import user from "@/store/modules/user";
-import { encodepwd, decodepwd } from "@/utils/util";
+import { decodepwd } from "@/utils/util";
 import UtilSystem from "@/utils/tool/UtilSystem";
 
 export default {

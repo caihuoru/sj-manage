@@ -37,7 +37,6 @@ export default {
   components: {
   },
   created() {
-
      // 加載站點默認配置
     let domain = location.host.split(":")[0]; // 讀取當前功能變數名稱獲取不同的配置項
     console.log("domain:",location.href);
@@ -60,6 +59,7 @@ export default {
       document.getElementById("titles").innerHTML = filesContent.appname;
       if (filesContent) {
         this.install(filesContent);
+        this.$store.commit('system/SET_STATE', filesContent)
       }
     } catch (e) {
       console.log(e)

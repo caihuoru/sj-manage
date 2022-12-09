@@ -1,4 +1,4 @@
-import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
+import { asyncRouterMap, constantRouterMap } from '@/router/router.config'
 import {ActionContext, ActionTree, GetterTree, Module, MutationTree} from 'vuex';
 import {RootState} from '@/store/interface';
 

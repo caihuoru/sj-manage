@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { constantRouterMap } from '@/config/router.config';
+import { constantRouterMap } from '@/router/router.config';
 // const originalPush: any = VueRouter.prototype.push
 // // @ts-ignore
 // VueRouter.prototype.push = function push(location: any, onResolve: any, onReject: any) {
