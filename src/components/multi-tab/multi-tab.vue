@@ -159,7 +159,7 @@
                 return (
                     <a-tab-pane
                         style={{ height: 0 }}
-                        tab={this.renderTabPane(page.meta.title, page.fullPath)}
+                        tab={this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
                         key={page.fullPath} closable={pages.length > 1}
                     >
                     </a-tab-pane>)

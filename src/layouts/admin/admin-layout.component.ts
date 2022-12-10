@@ -8,7 +8,7 @@ import SideMenu from '@/components/menu/side-menu.vue'
 import GlobalHeader from '@/components/global-header'
 import GlobalFooter from '@/components/global-footer'
 import SettingDrawer from '@/components/setting-drawer'
-
+import { asyncRouterMap } from '@/router/router.config'
 import { Component, Prop, Vue, Watch, Emit, Provide, Inject, Mixins } from "vue-property-decorator";
 import Mixin from '@/shared/mixins/mixin';
 import MixinDevice from '@/shared/mixins/mixin-device';
@@ -50,7 +50,9 @@ export default class AdminLayoutComponent extends MixinDevice {
 
   created() {
     // console.log(this.$router.options.routes)
-    this.menus = (this as any).$router.options.routes.find(item => item.path === '/').children
+    // this.menus = (this as any).$router.options.routes.find(item => item.path === '/').children
+    console.log((this as any).$router.options.routes.find(item => item.path === '/').children)
+    this.menus = asyncRouterMap
     this.collapsed = !this.sidebarOpened
   }
 

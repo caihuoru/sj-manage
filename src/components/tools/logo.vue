@@ -23,7 +23,7 @@ export default class Logo extends Vue {
 .logo {
     text-align: center;
     img{
-        width: 150px;
+        width: 100px;
         margin: 10px 0;
     }
 }
