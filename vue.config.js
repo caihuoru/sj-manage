@@ -1,6 +1,9 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const {resolve} = require('path')
 module.exports = {
+  publicPath: '',
   lintOnSave: undefined,
+  productionSourceMap: false,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: [
     // other js file
@@ -31,20 +34,47 @@ module.exports = {
       },
     },
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
+    if (process.env.NODE_ENV === 'production') {
+        //清除log
+        config.optimization.minimizer('terser').tap(args => {
+            args[0].terserOptions.compress['warnings'] = false;
+            args[0].terserOptions.compress['drop_console'] = true;
+            args[0].terserOptions.compress['drop_debugger'] = true;
+            // args.terserOptions.compress['pure_funcs'] = ['console.*'];
+            return [...args];
+        })
+    }
   },
   configureWebpack: config => {
-
     if (process.env.NODE_ENV === 'production') {
-      return {
-        plugins: [
-        ]
-      }
-    } else {
-      return {
-        plugins: [
-        ]
-      }
+        config.plugins.push(
+            new CompressionWebpackPlugin({
+                filename: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: new RegExp(
+                    '\\.(' + ['html', 'js', 'css'].join('|') + ')$'
+                ),
+                threshold: 10240, // 只有大小大于该值的资源会被处理 10240
+                minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+                deleteOriginalAssets: false // 删除原文件
+            })
+        )
     }
-  }
+    config.resolve.alias["d3-regression"] = "d3-regression/dist/d3-regression.js"
+    // console.log(config.module.rules)
+    const obj = {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [
+            resolve('node_modules/d3-regression/dist/d3-regression.js'),
+            resolve('node_modules/d3-regression/dist/d3-regression.min.js'),
+            resolve('node_modules/@antv/g2plot'),
+            resolve('node_modules/@antv/g2'),
+            resolve('d3-regression'),
+            resolve('@antv/g2plot')
+        ]
+    }
+    config.module.rules.push(obj)
+},
 }

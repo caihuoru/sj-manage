@@ -17,7 +17,7 @@
 <script lang="ts">
     const tooltip = [
         "x*y",
-        (x, y) => ({
+        (x:any, y:any) => ({
             name: x,
             value: y
         })
@@ -40,7 +40,7 @@
     })
     export default class TransferBar extends Vue {
         @Prop({type: String, default: ""})
-        public title: string;
+        public title?: string;
 
         public data: any[] = [];
         public scale = scale;
@@ -56,7 +56,7 @@
 
         getMonthBar() {
             this.$http.get("/analysis/month-bar")
-                .then(res => {
+                .then((res:any) => {
                     this.data = res.result;
                 });
         }

@@ -51,7 +51,7 @@
     })
     export default class Radar extends Vue {
         @Prop({type: Array, default: null})
-        public data: any[];
+        public data?: any[];
 
         public axis1Opts=axis1Opts;
         public axis2Opts=axis2Opts;

@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import moment from 'moment'
-    const data = []
+    const data:any = []
     const beginDay = new Date().getTime()
 
     for (let i = 0; i < 10; i++) {
@@ -23,7 +23,7 @@
 
     const tooltip = [
         'x*y',
-        (x, y) => ({
+        (x:any, y:any) => ({
             name: x,
             value: y
         })
@@ -45,7 +45,7 @@
     })
     export default class MiniArea extends Vue {
         @Prop({type: Number, default: 100})
-        public height: number;
+        public height?: number;
 
         public data=data;
         public tooltip=tooltip;

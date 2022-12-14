@@ -134,7 +134,6 @@ export default {
       const { form: { validateFields } } = this
       validateFields((err, values) => {
         if (!err) {
-          // eslint-disable-next-line no-console
           console.log('Received values of form: ', values)
         }
       })

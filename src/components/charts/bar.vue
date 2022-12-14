@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-    const data = [];
+    const data:any = [];
     for (let i = 0; i < 12; i += 1) {
         data.push({
             x: `${i + 1}月`,
@@ -23,7 +23,7 @@
     }
     const tooltip = [
         "x*y",
-        (x, y) => ({
+        (x:any, y:any) => ({
             name: x,
             value: y
         })
@@ -44,7 +44,7 @@
     })
     export default class Bar extends Vue {
         @Prop({type: String, default: ""})
-        public title: string;
+        public title: any;
 
         public  data = data;
         public  scale = scale;

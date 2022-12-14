@@ -13,12 +13,31 @@ export const asyncRouterMap:any = [
   //     requireAuth: true
   //   }
   // },
+  // {
+  //   path: '/Home',
+  //   name: 'index',
+  //   title: 'menu.home',
+  //   component: AdminLayout,
+  //   meta: { title: 'menu.home' },
+  //   // redirect: '/Report/bbgl_xttjb',
+  // },
   {
-    path: '/',
+    path: '/Home',
     name: 'index',
+    title: 'menu.home',
     component: AdminLayout,
-    meta: { title: '首页' },
-    redirect: '/Report/bbgl_xttjb',
+    meta: { title: 'menu.home' },
+    children: [
+      {
+        path: '/',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          requireAuth: true,
+          data: '',
+          title: 'menu.home',
+        }
+      }
+    ]
   },
   {
     data: 'MenuBBGL',
@@ -497,24 +516,29 @@ export const asyncRouterMap:any = [
  * @type { *[] }
  */
 export const constantRouterMap:any = [
-    {
-        path: '/account',
-        component: AccountLayout,
-        hidden: true,
-        children: [
-            {
-                path: 'login',
-                name: 'login',
-                component: () => import(/* webpackChunkName: "user" */ '@/views/account/login/login.vue')
-            },
-        ]
+  {
+    path: '/',
+    name: 'index',
+    title: 'menu.home',
+    redirect: '/Home',
+  },
+  {
+    path: '/account',
+    component: AccountLayout,
+    hidden: true,
+    children: [
+        {
+            path: 'login',
+            name: 'login',
+            component: () => import(/* webpackChunkName: "user" */ '@/views/account/login/login.vue')
+        },
+    ]
     },
-
     {
         path: '/404',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/404.vue')
     },
-    ...asyncRouterMap
+    ...asyncRouterMap,
 
 ]
 

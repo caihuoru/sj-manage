@@ -12,7 +12,7 @@ axios.defaults.headers.post["Cache-Control"] = "no-cache";
 axios.defaults.headers.post["pragma"] = "no-cache";
 //请求添加token
 axios.interceptors.request.use((request: any) => {
-    request.headers['Admin-Token-ID'] = (store as any).state.app.token_id || '';
+    request.headers['token'] = (store as any).state.user.token || '';
     return request;
 })
 

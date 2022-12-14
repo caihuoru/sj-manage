@@ -1,6 +1,6 @@
 import Menu from 'ant-design-vue/es/menu';
 import Icon from 'ant-design-vue/es/icon';
-import {Component, Prop, Vue,Watch} from 'vue-property-decorator';
+import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
 
 const {Item, SubMenu} = Menu;
 
@@ -59,7 +59,7 @@ export default class SMenu extends Vue {
         return h(Icon, {props: {...props}});
     }
     renderMenuItem(h, menu, pIndex, index) {
-        const target = menu.meta.target || null;
+        const target = menu.meta?.target || null;
         return h(Item, {key: menu.path ? menu.path : 'item_' + pIndex + '_' + index}, [
             h('router-link', {attrs: {to: {name: menu.name}, target: target}}, [
                 this.renderIcon(h, menu.meta.icon),

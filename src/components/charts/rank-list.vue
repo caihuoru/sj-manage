@@ -19,9 +19,9 @@
     })
     export default class RankList extends Vue {
         @Prop({type: String, default: ''})
-        public title: string;
+        public title?: string;
         @Prop({type: Array, default: null})
-        public list: any[];
+        public list?: any[];
 
         constructor() {
             super();

@@ -38,11 +38,11 @@
     })
     export default class ChartCard extends Vue {
         @Prop({type: String, default: ""})
-        public title: string;
+        public title: any;
         @Prop({type: [Function, Number, String], default: null, required: false,})
-        public total: string;
+        public total: any;
         @Prop({type: Boolean, default: false})
-        public loading: boolean;
+        public loading: any;
 
 
         constructor() {

@@ -18,13 +18,13 @@
     })
     export default class MiniProgress extends Vue {
         @Prop({type: Number, default: 0})
-        public target: number;
+        public target?: number;
         @Prop({type: String, default: '10px'})
-        public height: string;
+        public height?: string;
         @Prop({type: String, default: '#13C2C2'})
-        public color: string;
+        public color?: string;
         @Prop({type: Number, default: 0})
-        public percentage: number;
+        public percentage?: number;
 
 
         constructor() {

@@ -19,7 +19,7 @@
     ]
 
     registerShape('point', 'cloud', {
-        draw (cfg, container) {
+        draw (cfg:any, container:any) {
             return container.addShape('text', {
                 attrs: {
                     fillOpacity: cfg.opacity,
@@ -42,11 +42,11 @@
     })
     export default class TagCloud extends Vue {
         @Prop({type: Array, required: true})
-        public tagList: any[];
+        public tagList?: any[];
         @Prop({type: Number, default: 400})
-        public height: number;
+        public height?: number;
         @Prop({type: Number, default: 640})
-        public width: number;
+        public width?: number;
 
         public data:any[]=[];
         public scale=scale;
@@ -63,12 +63,12 @@
         }
 
         mounted(){
-            if (this.tagList.length > 0) {
+            if ((this as any).tagList.length > 0) {
                 this.initTagCloud(this.tagList)
             }
         }
 
-        initTagCloud (dataSource) {
+        initTagCloud (dataSource:any) {
             const { height, width } = this
 
 
@@ -95,7 +95,7 @@
                         }
                         return random * 90 // 0, 90, 270
                     },
-                    fontSize (d) {
+                    fontSize (d:any) {
                         if (d.value) {
                             return ((d.value - min) / (max - min)) * (32 - 8) + 8
                         }

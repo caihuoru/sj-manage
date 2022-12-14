@@ -3,7 +3,7 @@ import Icon from 'ant-design-vue/es/icon'
 
 const { Item, SubMenu } = Menu
 
-import {Component, Prop, Vue,Watch} from "vue-property-decorator";
+import {Component, Prop, Vue, Watch} from "vue-property-decorator";
 
 @Component({
     components: {},

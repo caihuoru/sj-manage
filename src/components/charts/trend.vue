@@ -14,17 +14,17 @@
   })
   export default class Trend extends Vue {
     @Prop({type: String, default: 0, required: true})
-    public term: string;
+    public term?: string;
     @Prop({type: Number, default: null})
-    public percentage: number;
+    public percentage?: number;
     @Prop({type: Boolean, default: null})
-    public type: boolean;
+    public type?: boolean;
     @Prop({type: Number, default: 0})
-    public target: number;
+    public target?: number;
     @Prop({type: Number, default: 0})
-    public value: number;
+    public value?: number;
     @Prop({type: Number, default: 2})
-    public fixed: number;
+    public fixed?: number;
 
     public trend: any = this.type && "up" || "down";
     public rate: any = this.percentage;
@@ -34,10 +34,11 @@
     }
 
     created() {
-      const type = this.type === null ? this.value >= this.target : this.type;
-      this.trend = type ? "up" : "down";
-      this.rate = (this.percentage === null ? Math.abs(this.value - this.target) * 100 / this.target : this.percentage)
-        .toFixed(this.fixed);
+      const that = this as any
+      const type = that.type === null ? that.value >= that.target : that.type;
+      that.trend = type ? "up" : "down";
+      that.rate = (that.percentage === null ? Math.abs(that.value - that.target) * 100 / that.target : that.percentage)
+        .toFixed(that.fixed);
     }
   }
   // export default {

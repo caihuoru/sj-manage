@@ -18,13 +18,13 @@
     })
     export default class MiniSmoothArea extends Vue {
         @Prop({type: String, default: 'ant-pro-smooth-area'})
-        public prefixCls: string;
+        public prefixCls?: string;
         @Prop({type: [Object, Array], required: true})
         public scale: any;
         @Prop({type: Array, required: true})
-        public dataSource: any[];
+        public dataSource?: any[];
 
-        public height: 100;
+        public height?: 100;
 
         constructor() {
             super();

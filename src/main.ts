@@ -21,11 +21,11 @@ Vue.prototype.cookies = cookies
 // Vue.use(router)
 
 new Vue({
-  router,
-  store,
-  i18n,
-  created () {
-    bootstrap()
-  },
-  render: h => h(App)
+    router,
+    store,
+    i18n,
+    created() {
+        bootstrap()
+    },
+    render: h => h(App)
 }).$mount('#app')

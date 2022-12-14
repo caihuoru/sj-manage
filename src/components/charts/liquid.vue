@@ -54,9 +54,9 @@
     })
     export default class Liquid extends Vue {
         @Prop({type: Number, default: 0})
-        public height: number;
+        public height?: number;
         @Prop({type: Number, default: 0})
-        public width: number;
+        public width?: number;
 
         constructor() {
             super();

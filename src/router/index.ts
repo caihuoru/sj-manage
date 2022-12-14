@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
   mode: 'hash',
-  base: process.env.BASE_URL,
+  base: process?.env.BASE_URL,
   scrollBehavior: () => { y: 0 },
   routes: constantRouterMap,
 });

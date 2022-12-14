@@ -20,18 +20,19 @@
     })
     export default class DetailListItem extends Vue {
         @Prop({type: String, default: '', required: false})
-        public term: string;
+        public term?: string;
 
         @Inject('col')
-        public col:number;
+        public col?:number;
 
         constructor() {
             super();
         }
         render () {
+            const that = this as any
             return (
-                <Col {...{ props: responsive[this.col] }}>
-                    <div class="term">{this.term}</div>
+                <Col {...{ props: responsive[that.col] }}>
+                    <div class="term">{that.term}</div>
                     <div class="content">{this.$slots.default}</div>
                 </Col>
             )

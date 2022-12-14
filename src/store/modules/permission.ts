@@ -9,7 +9,7 @@ import {RootState} from '@/store/interface';
  * @param route
  * @returns {boolean}
  */
-function hasPermission(permission, route) {
+function hasPermission(permission:any, route:any) {
   if (route.meta && route.meta.permission) {
     let flag = false;
     for (let i = 0, len = permission.length; i < len; i++) {
@@ -31,7 +31,7 @@ function hasPermission(permission, route) {
  * @returns {*}
  */
 // eslint-disable-next-line
-function hasRole(roles, route) {
+function hasRole(roles:any, route:any) {
   if (route.meta && route.meta.roles) {
     return route.meta.roles.includes(roles.id);
   } else {
@@ -39,8 +39,8 @@ function hasRole(roles, route) {
   }
 }
 
-function filterAsyncRouter(routerMap, roles) {
-  const accessedRouters = routerMap.filter( route => {
+function filterAsyncRouter(routerMap:any, roles:any) {
+  const accessedRouters = routerMap.filter( (route:any) => {
     if (hasPermission(roles.permissionList, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles);
