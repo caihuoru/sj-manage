@@ -18,6 +18,7 @@ import '@/utils/filter' // global filter
 
 Vue.config.productionTip = false
 Vue.prototype.cookies = cookies
+// Vue.prototype.$t = i18n.t
 // Vue.use(router)
 
 new Vue({

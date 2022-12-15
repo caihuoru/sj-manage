@@ -190,7 +190,7 @@ export default class TableList extends Vue {
       dataIndex: 'callNo',
       sorter: true,
       needTotal: true,
-      customRender: (text) => text + ' 次'
+      customRender: (text:any) => text + ' 次'
     },
     {
       title: '状态',

@@ -22,22 +22,11 @@ export const asyncRouterMap:any = [
   //   // redirect: '/Report/bbgl_xttjb',
   // },
   {
-    path: '/Home',
-    name: 'index',
+    path: '/Home/system',
+    name: 'home',
     title: 'menu.home',
-    component: AdminLayout,
-    meta: { title: 'menu.home' },
-    children: [
-      {
-        path: '/',
-        component: () => import('@/views/home/index.vue'),
-        meta: {
-          requireAuth: true,
-          data: '',
-          title: 'menu.home',
-        }
-      }
-    ]
+    component: () => import('@/views/home/index.vue'),
+    meta: { title: 'menu.home' }
   },
   {
     data: 'MenuBBGL',
@@ -523,6 +512,13 @@ export const constantRouterMap:any = [
     redirect: '/Home',
   },
   {
+    path: '/Home',
+    name: 'home',
+    title: 'menu.home',
+    component: AdminLayout,
+    meta: { title: 'menu.home' }
+  },
+  {
     path: '/account',
     component: AccountLayout,
     hidden: true,
@@ -532,8 +528,7 @@ export const constantRouterMap:any = [
             name: 'login',
             component: () => import(/* webpackChunkName: "user" */ '@/views/account/login/login.vue')
         },
-    ]
-    },
+    ]},
     {
         path: '/404',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/404.vue')

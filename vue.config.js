@@ -1,8 +1,7 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const {resolve} = require('path')
 module.exports = {
-  publicPath: '',
-  lintOnSave: undefined,
+  publicPath: '/',
   productionSourceMap: false,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: [

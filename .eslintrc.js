@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 0.0.1
- * @Author: Jvan
- * @Date: 2020-05-08 13:24:06
- * @LastEditors: sueRimn
- * @LastEditTime: 2020-06-24 13:35:35
- */
 module.exports = {
     root: true,
     env: {

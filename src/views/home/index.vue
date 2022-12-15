@@ -72,7 +72,7 @@ import { Component, Vue } from "vue-property-decorator";
 import moment from 'moment'
 import { getStatistics } from "@/api/home"
 import { noticeList } from "@/api/notice"
-// import { noticeType, getNoticeType } from "@/utils/labelFunctionUtil"
+import { i18n } from '@/plugins/i18n'
 import Global from "@/shared/mixins/global";
 @Component({
     components: {},
@@ -83,79 +83,79 @@ import Global from "@/shared/mixins/global";
         },
     },
 })
-export default class Home extends Vue {
-    dataTypes:any = {
-        register: { key: "register", label: this.$t('common.zcrs') },
-        login: { key: "login", label: this.$t('common.drrs') },
-        recharge: { key: "recharge", label: this.$t('common.recharge') },
-        withdraw: { key: "withdraw", label: this.$t('common.withdraw') },
-        bet: { key: "bet", label: this.$t('common.bet') },
-    }
-    columns:Array<any> = [
-        {
-            title: this.$t('common.publish-time'),
-            dataIndex: 'update_at',
-            checked: true,
-            scopedSlots: { customRender: "update_at" },
-            width: 200,
-            align: 'center',
-        },
-        {
-            title: this.$t('common.notice-type'),
-            dataIndex: 'type',
-            checked: true,
-            scopedSlots: { customRender: "type" },
-            width: 150,
-            align: 'center',
-        },
-        {
-            title: this.$t('common.content'),
-            dataIndex: 'content',
-            checked: true,
-            align: 'center',
-        }
-    ]
-    pagination: any = {
-        pageNo: 1,
-        pageSize: 10, //每页中显示10条数据
-        total: 0,
-        showQuickJumper: true,
-        showTotal: (total:any) => `共 ${total} 条`, // 显示总数
-    }
-    noticeList: Array<any> = []
-    statistics: any = {}
-    type = 0
-    created() {
-        console.log(this.columns)
-    }
-    mounted() {
-        
-        this.getNoticeList()
-        this.getStatistics()
-        
-    }
-    async getNoticeList() {
-        const res = await noticeList({
-            page_size: this.pagination.pageSize,
-            page: this.pagination.pageNo,
-            notice_type: this.type || undefined
-        })
-        const data = res.data
-        console.log(res.data)
-        this.noticeList = data.list || []
-        this.pagination.total = data.total
-    }
-    async getStatistics() {
-        const res = await getStatistics({ date: 1 })
-        console.log(res.data)
-        const data = res.data
-        this.statistics = { ...data }
-    }
-    handleTableChange(pagination:any, filters:any, sorter:any) {
-        // console.log(pagination)
-        this.pagination = { ...this.pagination, pageNo: pagination.current, pageSize: pagination.pageSize };
-        this.getNoticeList()
-    }
+export default class Home1 extends Vue {
+  pagination: any = {
+    pageNo: 1,
+    pageSize: 10, //每页中显示10条数据
+    total: 0,
+    showQuickJumper: true,
+    showTotal: (total:any) => `共 ${total} 条`, // 显示总数
+  }
+  dataTypes:any = {
+      register: { key: "register", label: i18n.t('common.zcrs') },
+      login: { key: "login", label: i18n.t('common.drrs') },
+      recharge: { key: "recharge", label: i18n.t('common.recharge') },
+      withdraw: { key: "withdraw", label: i18n.t('common.withdraw') },
+      bet: { key: "bet", label: i18n.t('common.bet') },
+  }
+  columns:Array<any> = [
+      {
+          title: i18n.t('common.publish-time'),
+          dataIndex: 'update_at',
+          checked: true,
+          scopedSlots: { customRender: "update_at" },
+          width: 200,
+          align: 'center',
+      },
+      {
+          title: i18n.t('common.notice-type'),
+          dataIndex: 'type',
+          checked: true,
+          scopedSlots: { customRender: "type" },
+          width: 150,
+          align: 'center',
+      },
+      {
+          title: i18n.t('common.content'),
+          dataIndex: 'content',
+          checked: true,
+          align: 'center',
+      }
+  ]
+  noticeList: Array<any> = []
+  statistics: any = {}
+  type = 0
+  created() {
+      console.log(this.columns)
+  }
+  mounted() {
+      
+      this.getNoticeList()
+      this.getStatistics()
+      
+  }
+  async getNoticeList() {
+      const res = await noticeList({
+          page_size: this.pagination.pageSize,
+          page: this.pagination.pageNo,
+          notice_type: this.type || undefined
+      })
+      const data = res.data
+      console.log(res.data)
+      this.noticeList = data.list || []
+      this.pagination.total = data.total
+  }
+  async getStatistics() {
+      const res = await getStatistics({ date: 1 })
+      console.log(res.data)
+      const data = res.data
+      this.statistics = { ...data }
+  }
+  handleTableChange(pagination:any, filters:any, sorter:any) {
+      // console.log(pagination)
+      this.pagination = { ...this.pagination, pageNo: pagination.current, pageSize: pagination.pageSize };
+      this.getNoticeList()
+  }
   
 };
 </script>

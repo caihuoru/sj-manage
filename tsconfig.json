@@ -2,21 +2,19 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": false,
-    "declaration": false,
-    "strictNullChecks": false,
-    "sourceMap": true,
+    "strict": true,
     "jsx": "preserve",
-    "jsxFactory": "h",
     "importHelpers": true,
+    "skipLibCheck": true,  //跳过检查
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "node",
-      "jest"
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
@@ -25,6 +23,7 @@
     },
     "lib": [
       "esnext",
+      "es2015",
       "dom",
       "dom.iterable",
       "scripthost"
@@ -36,7 +35,8 @@
     "src/**/*.vue",
     "src/**/*.js",
     "tests/**/*.ts",
-    "tests/**/*.tsx"],
+    "tests/**/*.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]

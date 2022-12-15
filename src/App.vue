@@ -6,11 +6,11 @@
     </div>
   </a-config-provider>
 </template>
-<script>
-import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
-import zhTW from "ant-design-vue/lib/locale-provider/zh_TW";
-import enUS from "ant-design-vue/lib/locale-provider/en_US";
-import jaJP from "ant-design-vue/lib/locale-provider/ja_JP";
+<script lang="ts">
+import zhCN from "ant-design-vue/lib/locale-provider/zh_CN.js";
+import zhTW from "ant-design-vue/lib/locale-provider/zh_TW.js";
+import enUS from "ant-design-vue/lib/locale-provider/en_US.js";
+import jaJP from "ant-design-vue/lib/locale-provider/ja_JP.js";
 import { getBrowserInfo, getOsInfo } from "./utils/util";
 import UtilSystem from '@/utils/tool/UtilSystem';
 import ConfigUtil from '@/utils/tool/ConfigUtil';
@@ -30,13 +30,16 @@ export default {
   },
   provide() {
     return {
-      reload: this.reload,
-      setLang: this.setLang
+      reload: (this as any).reload,
+      setLang: (this as any).setLang
     };
   },
   components: {
   },
   created() {
+    const win = window as any
+    const doc = document as any
+    const that = this as any
      // 加載站點默認配置
     let domain = location.host.split(":")[0]; // 讀取當前功能變數名稱獲取不同的配置項
     console.log("domain:",location.href);
@@ -47,19 +50,19 @@ export default {
       if(isssl){
          filePath = "configs_ssl_" + domain + ".json" + "?" + Math.random() ;
       }      
-      filesContent = JSON.parse(this.readFile("sitesconfig/" + filePath));
-      window.isLocalHost = false
+      filesContent = JSON.parse(that.readFile("sitesconfig/" + filePath));
+      win.isLocalHost = false
       if (domain.indexOf('localhost') != -1 || domain.indexOf('192.168.1') != -1) {
-        window.isLocalHost = true
+        win.isLocalHost = true
       }
-      window.siteConfigs = filesContent;
-      document
+      win.siteConfigs = filesContent;
+      doc
         .getElementById("favicons")
         .setAttribute("href", filesContent.favicon);
-      document.getElementById("titles").innerHTML = filesContent.appname;
+      doc.getElementById("titles").innerHTML = filesContent.appname;
       if (filesContent) {
-        this.install(filesContent);
-        this.$store.commit('system/SET_STATE', filesContent)
+        that.install(filesContent);
+        that.$store.commit('system/SET_STATE', filesContent)
       }
     } catch (e) {
       console.log(e)
@@ -69,14 +72,15 @@ export default {
   },
   computed: {},
   mounted() {
-    this.setLang();
-    if (!this.checkTimer){
-      this.checkTimer = setInterval(() => { this.checkSystem() }, 300000);
-      this.checkSystem()
+    const that = this as any
+    that.setLang();
+    if (!that.checkTimer){
+      that.checkTimer = setInterval(() => { that.checkSystem() }, 300000);
+      that.checkSystem()
     }
   },
   methods: {
-    readFile(filePath) {
+    readFile(filePath:string) {
       // 創建一個新的xhr對象
       let xhr = null;
       if (window.XMLHttpRequest) {
@@ -92,12 +96,14 @@ export default {
       return xhr.status === okStatus ? xhr.responseText : null;
     },
     reload() {
-      this.isRouteAlive = false;
-      this.$nextTick(() => {
-        this.isRouteAlive = true;
+      const that = this as any
+      that.isRouteAlive = false;
+      that.$nextTick(() => {
+        that.isRouteAlive = true;
       });
     },
     setLang() {
+      const that = this as any
       let lang = localStorage.getItem("AGLang");
       if (lang && lang.length > 0) {
         lang = lang.toLowerCase();
@@ -106,24 +112,24 @@ export default {
       }
       switch (lang) {
         case "zh-tw":
-          this.locales=zhTW;
+          that.locales=zhTW;
           break;
         case "zh-cn":
-          this.locales=zhCN;
+          that.locales=zhCN;
           break;
         case "en-us":
-          this.locales=enUS;
+          that.locales=enUS;
           break;
 
         case "ja-jp":
-          this.locales=jaJP;
+          that.locales=jaJP;
           break;
         default:
-          this.locales=zhTW;
+          that.locales=zhTW;
           break;
       }
     }, 
-    install(config) {  
+    install(config:any) {  
       // 設置平臺類型
       // let isTest = false;
       let device = "web"; // 設備名稱 ’我的iphone‘
@@ -133,10 +139,11 @@ export default {
       let ver = UtilSystem.VERSION
       let mac = '' 
       let udid = UtilSystem.getUdid()
+      const win = window as any
        // 讀取系統配置
       let siteConfig = {};
-      if (window.siteConfigs.ConfigSys != undefined) {
-        siteConfig = window.siteConfigs; 
+      if (win.siteConfigs.ConfigSys != undefined) {
+        siteConfig = win.siteConfigs; 
       } 
       // const config = {
       //   deviceName: device,
