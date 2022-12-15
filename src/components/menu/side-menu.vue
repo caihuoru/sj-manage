@@ -32,15 +32,15 @@
     })
     export default class SideMenu extends MixinDevice {
         @Prop({type: String, default: 'inline',required: false})
-        public  mode: string;
+        public  mode?: string;
         @Prop({type: String, default: 'dark',required: false})
-        public  theme: string;
+        public  theme?: string;
         @Prop({type: Boolean, default: false,required: false})
-        public collapsible: boolean;
+        public collapsible?: boolean;
         @Prop({type: Boolean, default: false,required: false})
-        public collapsed: boolean;
+        public collapsed?: boolean;
         @Prop({type: Array, required: true})
-        public menus: any[];
+        public menus?: any[];
 
 
         constructor() {
@@ -48,7 +48,7 @@
         }
 
         @Emit('menuSelect')
-        onSelect (obj) {
+        onSelect (obj:any) {
             //this.$emit('menuSelect', obj)
         }
     }

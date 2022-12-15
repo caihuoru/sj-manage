@@ -42,15 +42,15 @@
   })
   export default class GlobalHeader extends Mixin {
     @Prop({type: String, default: "sidemenu"})
-    public mode: number;
+    public mode?: number;
     @Prop({type: Array, required: true})
-    public menus: any[];
+    public menus?: any[];
     @Prop({type: String, default: "dark", required: false})
-    public theme: string;
+    public theme?: string;
     @Prop({type: Boolean, default: false, required: false})
-    public collapsed: boolean;
+    public collapsed?: boolean;
     @Prop({type: String, default: "desktop", required: false})
-    public device: string;
+    public device?: string;
 
     visible: boolean = true;
     oldScrollTop: number = 0;

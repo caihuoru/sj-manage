@@ -7,10 +7,10 @@
   </a-config-provider>
 </template>
 <script lang="ts">
-import zhCN from "ant-design-vue/lib/locale-provider/zh_CN.js";
-import zhTW from "ant-design-vue/lib/locale-provider/zh_TW.js";
-import enUS from "ant-design-vue/lib/locale-provider/en_US.js";
-import jaJP from "ant-design-vue/lib/locale-provider/ja_JP.js";
+import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+import zhTW from "ant-design-vue/lib/locale-provider/zh_TW";
+import enUS from "ant-design-vue/lib/locale-provider/en_US";
+import jaJP from "ant-design-vue/lib/locale-provider/ja_JP";
 import { getBrowserInfo, getOsInfo } from "./utils/util";
 import UtilSystem from '@/utils/tool/UtilSystem';
 import ConfigUtil from '@/utils/tool/ConfigUtil';

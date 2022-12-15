@@ -12,11 +12,11 @@ import { post } from '@/plugins/axios'
  * @param parameter
  * @returns {*}
  */
-export function login (parameter) {
+export function login (parameter: any) {
   return post('/ag/login', parameter, {})
 }
 
-export function getSmsCaptcha (parameter) {
+export function getSmsCaptcha (parameter: any) {
   return post(api.SendSms, parameter, {})
 }
 

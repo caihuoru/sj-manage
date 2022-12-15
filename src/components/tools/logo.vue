@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="logo"><img :src="logo"/></div>
-        <div class="appname">{{ appname }}</div>
+        <!-- <div class="appname">{{ appname }}</div> -->
     </div>
 </template>
 

@@ -11,7 +11,7 @@ import store from './store'
 
 const whiteList = ['login', 'register', 'registerResult'] // no redirect whitelist
 
-router.beforeEach((to, from: any, next) => {
+router.beforeEach((to: any, from: any, next) => {
 
   if (whiteList.includes(to.name)) {
       next()

@@ -4,7 +4,6 @@
       text-align: left;
       font-size: 40px;
       font-weight: bold;
-      color: #fff;
       &-tip {
         font-size: 18px;
         font-weight: 300;
@@ -14,22 +13,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       margin: 20px 0;
       &-item {
         text-align: left;
-        width: 18%;
+        width: 25%;
         color: #FFC74C;
         position: relative;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 18px;
+        margin-bottom: 20px;
         img {
-          width: 100%;
+          // width: 90%;
+          max-height: 120px;
+          display: block;
+          margin: 0 auto;
         }
         &-content {
             width: 100%;
             position: absolute;
             left: 0;
-            padding: 8% 10px 0 20px;
+            padding: 6% 5% 0 25%;
             top: 0;
         }
         &-num {
@@ -52,80 +56,18 @@
       }
     }
     .main-wrap-table-content {
-      background: #28292d;
       .notice {
         /deep/ .ant-table-content {
-            max-height: 500px;
+            max-height: calc(100vh - 650px);
             overflow: auto;
         }
         /deep/ .ant-table-placeholder {
-            background: #28292d;
             border: 1px solid rgba(248, 247, 247, .5);
-            .ant-empty-normal {
-                color: #fff;
-            }
-        }
-        /deep/ .ant-table {
-          color: #fff;
-        }
-        /deep/ .ant-table-thead > tr > th {
-          background: #28292d;
-          font-weight: bold;
-          font-size: 18px;
-          color: #FFC74C;
         }
         /deep/ .ant-table-thead > tr > th,
         /deep/ .ant-table-tbody > tr > td {
           border-bottom: 1px solid rgba(248, 247, 247, .5);
         }
-        /deep/ .ant-pagination-prev .ant-pagination-item-link,
-        /deep/ .ant-pagination-next .ant-pagination-item-link {
-          background: #000;
-          color: #fff;
-          &:hover {
-            border-color: #fff;
-          }
-        }
-        /deep/ .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
-          background: #000;
-        }
-        /deep/ .ant-pagination {
-          color: #fff;
-          position: fixed;
-          bottom: 0;
-          right: 0;
-        }
-        /deep/ .ant-pagination-item {
-          background: #28292d;
-          a {
-            color: #fff;
-          }
-          &:hover {
-            border-color: #fff;
-          }
-        }
-        /deep/ .ant-pagination-item-active {
-          border-color: #FFC74C;
-          a {
-            color: #FFC74C;
-          }
-        }
       }
     }
-}
- // 兼容下zoom
-@media screen and (max-width: 1270px) and (min-width: 0px){
-  /deep/ .ant-table-content {
-    max-height: 700px !important;
-  }
-}
-@media screen and (max-width: 1600px) and (min-width: 1271px){
-  /deep/ .ant-table-content {
-    max-height: 550px !important;
-  }
-}
-@media only screen and (max-height: 768px) {
-  /deep/ .ant-table-content {
-    max-height: 350px !important;
-  }
 }

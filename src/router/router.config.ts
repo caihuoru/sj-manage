@@ -13,21 +13,6 @@ export const asyncRouterMap:any = [
   //     requireAuth: true
   //   }
   // },
-  // {
-  //   path: '/Home',
-  //   name: 'index',
-  //   title: 'menu.home',
-  //   component: AdminLayout,
-  //   meta: { title: 'menu.home' },
-  //   // redirect: '/Report/bbgl_xttjb',
-  // },
-  {
-    path: '/Home/system',
-    name: 'home',
-    title: 'menu.home',
-    component: () => import('@/views/home/index.vue'),
-    meta: { title: 'menu.home' }
-  },
   {
     data: 'MenuBBGL',
     path: '/Report',
@@ -509,6 +494,16 @@ export const constantRouterMap:any = [
     path: '/',
     name: 'index',
     title: 'menu.home',
+    component: AdminLayout,
+    children: [
+      {
+        path: '/Home',
+        name: 'home',
+        title: 'menu.home',
+        component: () => import('@/views/home/index.vue'),
+        meta: { title: 'menu.home' }
+      }
+    ],
     redirect: '/Home',
   },
   {

@@ -21,7 +21,7 @@ module.exports = {
         'no-debugger': 1,
         "no-cond-assign": 0,
         "arrow-spacing": 2,
-        "indent": [2,4, {
+        "indent": [2, {
             "SwitchCase":1,
             "ignoreComments":true
         }],
@@ -49,7 +49,7 @@ module.exports = {
         "vue/no-multi-spaces": ["error", {
             "ignoreProperties": false
         }],
-        "@typescript-eslint/indent": ["error",4],
+        "@typescript-eslint/indent": ["error",2],
         "vue/mustache-interpolation-spacing": ["error"],
         "@typescript-eslint/no-var-requires":"off",
         "@typescript-eslint/no-explicit-any": ["off"],

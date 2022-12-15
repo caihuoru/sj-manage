@@ -9,17 +9,17 @@ const {Item, SubMenu} = Menu;
 })
 export default class SMenu extends Vue {
     @Prop({type: Array, required: true})
-    public menu: any[];
+    public menu?: any[];
     @Prop({type: String, default: 'dark', required: false})
-    public theme: string;
+    public theme?: string;
     @Prop({type: String, default: 'inline', required: false})
-    public mode: string;
+    public mode?: string;
     @Prop({type: Boolean, default: false, required: false})
-    public collapsed: boolean;
+    public collapsed?: boolean;
 
     get rootSubmenuKeys() {
-        const keys = [];
-        this.menu.forEach(item => keys.push(item.path));
+        const keys:any = [];
+        (this as any).menu.forEach((item: any) => keys.push(item.path));
         return keys;
     }
 
@@ -37,7 +37,7 @@ export default class SMenu extends Vue {
     }
 
     @Watch('collapsed')
-    collapsedChanged(val){
+    collapsedChanged(val: any){
         if (val) {
             this.cachedOpenKeys = this.openKeys.concat();
             this.openKeys = [];
@@ -46,11 +46,11 @@ export default class SMenu extends Vue {
         }
     }
     @Watch('$route')
-    routeChanged(val){
+    routeChanged(val: any){
         this.updateMenu();
     }
 
-    renderIcon(h, icon) {
+    renderIcon(h: any, icon: any) {
         if (icon === 'none' || icon === undefined) {
             return null;
         }
@@ -58,7 +58,7 @@ export default class SMenu extends Vue {
         typeof (icon) === 'object' ? props.component = icon : props.type = icon;
         return h(Icon, {props: {...props}});
     }
-    renderMenuItem(h, menu, pIndex, index) {
+    renderMenuItem(h: any, menu: any, pIndex: any, index: any) {
         const target = menu.meta?.target || null;
         return h(Item, {key: menu.path ? menu.path : 'item_' + pIndex + '_' + index}, [
             h('router-link', {attrs: {to: {name: menu.name}, target: target}}, [
@@ -67,38 +67,38 @@ export default class SMenu extends Vue {
             ])
         ]);
     }
-    renderSubMenu(h, menu, pIndex, index) {
+    renderSubMenu(h: any, menu: any, pIndex: any, index: any) {
         const this2_ = this;
         const subItem = [h('span', {slot: 'title'}, [this.renderIcon(h, menu.meta.icon), h('span', [menu.meta.title])])];
-        const itemArr = [];
+        const itemArr: any = [];
         const pIndex_ = pIndex + '_' + index;
         console.log('menu', menu);
         if (!menu.hideChildrenInMenu) {
-            menu.children.forEach(function(item, i) {
+            menu.children.forEach(function(item: any, i: any) {
                 itemArr.push(this2_.renderItem(h, item, pIndex_, i));
             });
         }
         return h(SubMenu, {key: menu.path ? menu.path : 'submenu_' + pIndex + '_' + index}, subItem.concat(itemArr));
     }
-    renderItem(h, menu, pIndex, index) {
+    renderItem(h: any, menu: any, pIndex: any, index: any) {
         if (!menu.hidden) {
             return menu.children && !menu.hideChildrenInMenu
                 ? this.renderSubMenu(h, menu, pIndex, index)
                 : this.renderMenuItem(h, menu, pIndex, index);
         }
     }
-    renderMenu(h, menuTree) {
+    renderMenu(h: any, menuTree: any) {
         const this2_ = this;
-        const menuArr = [];
-        menuTree.forEach(function(menu, i) {
+        const menuArr: any = [];
+        menuTree.forEach(function(menu: any, i: any) {
             if (!menu.hidden) {
                 menuArr.push(this2_.renderItem(h, menu, '0', i));
             }
         });
         return menuArr;
     }
-    onOpenChange(openKeys) {
-        const latestOpenKey = openKeys.find(key => !this.openKeys.includes(key));
+    onOpenChange(openKeys: any) {
+        const latestOpenKey = openKeys.find((key: any) => !this.openKeys.includes(key));
         if (!this.rootSubmenuKeys.includes(latestOpenKey)) {
             this.openKeys = openKeys;
         } else {
@@ -106,7 +106,7 @@ export default class SMenu extends Vue {
         }
     }
     updateMenu() {
-        const routes = this.$route.matched.concat();
+        const routes:any = this.$route.matched.concat();
 
         if (routes.length >= 4 && this.$route.meta?.hidden) {
             routes.pop();
@@ -115,9 +115,9 @@ export default class SMenu extends Vue {
             this.selectedKeys = [routes.pop().path];
         }
 
-        const openKeys = [];
+        const openKeys:any = [];
         if (this.mode === 'inline') {
-            routes.forEach(item => {
+            routes.forEach((item: any) => {
                 openKeys.push(item.path);
             });
         }
@@ -125,7 +125,7 @@ export default class SMenu extends Vue {
         this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys);
     }
 
-    render(h) {
+    render(h: any) {
         return h(
             Menu,
             {
@@ -137,7 +137,7 @@ export default class SMenu extends Vue {
                 },
                 on: {
                     openChange: this.onOpenChange,
-                    select: obj => {
+                    select: (obj: any) => {
                         this.selectedKeys = obj.selectedKeys;
                         this.$emit('select', obj);
                     }
